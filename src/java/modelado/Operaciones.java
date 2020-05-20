@@ -17,18 +17,19 @@ public class Operaciones {
         driver="com.mysql.jdbc.Driver";
         url="jdbc:mysql://localhost:3306/Crud";
         user="root";
-        passwordBd="root";
+        passwordBd="n0m3l0";
     }
     
     //Entero por que retorna el nivel de usuario
     public int loguear(String usuario,String password){
-        
+        System.out.println(usuario);
+        System.out.println(password);
             Connection conn;
             PreparedStatement pst;
             ResultSet rs;
             int cont=0;
             int nivel = 0;
-            String sql = "SELECT nivel FROM MUsuario where user='"+usuario+"' and password='"+password+"'";
+            String sql = "SELECT `nivel` FROM MUsuario WHERE username='"+usuario+"' and password='"+password+"'";
         try {
             
             Class.forName(this.driver);
@@ -42,6 +43,7 @@ public class Operaciones {
             
             while(rs.next()){
                 nivel = rs.getInt(1);
+                System.out.println(nivel);
             }
             conn.close();
         } catch (ClassNotFoundException | SQLException e) {

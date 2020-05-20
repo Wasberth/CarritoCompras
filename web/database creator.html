@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `Crud`.`DProducto` (
   `id_dprod` INT NOT NULL AUTO_INCREMENT,
   `precio_prod` DECIMAL NOT NULL,
   `stock_prod` INT NOT NULL,
-  `img_prod` LONGBLOB NOT NULL,
+  `img_prod` LONGBLOB,
   `desc_prod` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`id_dprod`),
   CONSTRAINT `detalle-producto`
@@ -39,63 +39,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Crud`.`CDir_Emp`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Crud`.`CDir_Emp` (
-  `id_diremp` INT NOT NULL AUTO_INCREMENT,
-  `calle` VARCHAR(45) NOT NULL,
-  `int` INT NOT NULL,
-  `ext` INT NOT NULL,
-  `colonia` INT NOT NULL,
-  `cp` INT NOT NULL,
-  `ciudad` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_diremp`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Crud`.`CPrivilegio_Empleado`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Crud`.`CPrivilegio_Empleado` (
-  `id_cpe` INT NOT NULL AUTO_INCREMENT,
-  `tipo_cpe` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_cpe`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Crud`.`MEmpleado`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Crud`.`MEmpleado` (
-  `id_emp` INT NOT NULL AUTO_INCREMENT,
-  `nom_emp` VARCHAR(45) NOT NULL,
-  `appat_emp` VARCHAR(45) NOT NULL,
-  `apmat_emp` VARCHAR(45) NOT NULL,
-  `fecnac_emp` DATETIME NOT NULL,
-  `dir_emp` INT NOT NULL,
-  `tel_emp` INT NOT NULL,
-  `cel_emp` INT NOT NULL,
-  `id_cpe` INT NOT NULL,
-  PRIMARY KEY (`id_emp`),
-  CONSTRAINT `direccion`
-    FOREIGN KEY (`dir_emp`)
-    REFERENCES `Crud`.`CDir_Emp` (`id_diremp`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `privilegio`
-    FOREIGN KEY (`id_cpe`)
-    REFERENCES `Crud`.`CPrivilegio_Empleado` (`id_cpe`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `Crud`.`MUsuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Crud`.`MUsuario` (
-  `id_cliente` INT NOT NULL,
-  `username` VARCHAR(45) NOT NULL,
+  `id_usr` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
   `nom_cli` VARCHAR(45) NOT NULL,
   `appat_cli` VARCHAR(45) NOT NULL,
@@ -105,9 +53,11 @@ CREATE TABLE IF NOT EXISTS `Crud`.`MUsuario` (
   `tel_cli` VARCHAR(45) NOT NULL,
   `cel_cli` VARCHAR(45) NOT NULL,
   `dir_entrega_cli` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_cliente`))
+  `nivel` INT NOT NULL DEFAULT 2,
+  PRIMARY KEY (`id_usr`))
 ENGINE = InnoDB;
 
+ALTER TABLE MEmpleado AUTO_INCREMENT = 1;
 
 -- -----------------------------------------------------
 -- Table `Crud`.`DCompra`
@@ -120,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `Crud`.`DCompra` (
   `total_cc` DOUBLE NOT NULL,
   `fecha` DATETIME NOT NULL,
   PRIMARY KEY (`id_cc`),
-  CONSTRAINT `producto`
+  CONSTRAINT `compra-producto`
     FOREIGN KEY (`id_prod`)
     REFERENCES `Crud`.`MProducto` (`id_mprod`)
     ON DELETE CASCADE
@@ -136,54 +86,14 @@ CREATE TABLE IF NOT EXISTS `Crud`.`EClienteCom` (
   `id_cli` INT NOT NULL,
   `id_cc` INT NOT NULL,
   PRIMARY KEY (`id_ecc`),
-  CONSTRAINT `cliente`
+  CONSTRAINT `cliente-carrito`
     FOREIGN KEY (`id_cli`)
-    REFERENCES `Crud`.`MUsuario` (`id_cliente`)
+    REFERENCES `Crud`.`MUsuario` (`id_usr`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `carrito`
+  CONSTRAINT `carrito-cliente`
     FOREIGN KEY (`id_cc`)
     REFERENCES `Crud`.`DCompra` (`id_cc`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Crud`.`DOrdenServicio`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Crud`.`DOrdenServicio` (
-  `id_dordser` INT NOT NULL AUTO_INCREMENT,
-  `id_cli` INT NOT NULL,
-  `id_emp` INT NOT NULL,
-  `descripcion` VARCHAR(200) NOT NULL,
-  PRIMARY KEY (`id_dordser`),
-  CONSTRAINT `cliente`
-    FOREIGN KEY (`id_cli`)
-    REFERENCES `Crud`.`MUsuario` (`id_cliente`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `emp`
-    FOREIGN KEY (`id_emp`)
-    REFERENCES `Crud`.`MEmpleado` (`id_emp`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Crud`.`MOrdenServicio`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Crud`.`MOrdenServicio` (
-  `id_ors` INT NOT NULL AUTO_INCREMENT,
-  `id_dorser` INT NOT NULL,
-  `fecha` DATETIME NOT NULL,
-  `poliza` VARCHAR(45) NOT NULL,
-  `resolucion` TINYINT NOT NULL,
-  PRIMARY KEY (`id_ors`),
-  CONSTRAINT `DOrdenServicio`
-    FOREIGN KEY (`id_dorser`)
-    REFERENCES `Crud`.`DOrdenServicio` (`id_dordser`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -196,13 +106,37 @@ CREATE TABLE IF NOT EXISTS `Crud`.`MCompra` (
   `id_com` INT NOT NULL AUTO_INCREMENT,
   `d_com` INT NOT NULL,
   PRIMARY KEY (`id_com`),
-  CONSTRAINT `compra`
+  CONSTRAINT `detalle-compra`
     FOREIGN KEY (`d_com`)
     REFERENCES `Crud`.`DCompra` (`id_cc`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+INSERT INTO `MUsuario`(`id_usr`, `username`, `password`, `nom_cli`, `appat_cli`, `apmat_cli`, `fecnac_cli`, `dir_cli`, `tel_cli`, `cel_cli`, `dir_entrega_cli`, `nivel`)
+VALUES
+    (1, 'User', 'hola', 'Bob', 'Hernández', 'Castillo', '2000-01-01', 'Lago Amatitlán 1', '5555555555', '565555555555', 'Lago Amatitlán 1', 2),
+    (2, 'User2', 'hola', 'Bob', 'Apellido', 'Apellido', '2001-01-01', 'Lago Amatitlán 7', '5555543255', '565555565555', 'Lago Amatitlán 7', 2),
+    (3, 'Willy', 'contrasena', 'Wilberth', 'García', 'Piña', '2003-01-01', 'Lago POO 532', '55543243255', '565655565555', 'Lago Amatitlán 7', 1),
+    (4, 'Puertas', 'contrasena', 'Ismael', 'García', 'Porto', '2003-02-20', 'Océano Pacífico 642', '55843243255', '565655546655', 'Mi casa', 1),
+    (5, 'roberto', '1234', 'robert', 'asd', 'ghgfd', '1903-01-01', 'Lago POO 532', '55543243255', '565655565555', 'Lago Amatitlán 7', 1),
+    (6, 'ismael', '1234', 'Wilberth', 'García', 'Piña', '1993-01-01', 'Lago POO 532', '55543243255', '565655565555', 'Lago Amatitlán 7', 2);
+
+LOCK TABLES `MProducto` WRITE;
+
+INSERT INTO `MProducto` (`id_mprod`, `nom_mprod`)
+VALUES (1, 'Cubrebocas'), (2, 'Bata'), (3, 'Gel'), (4, 'Pluma');
+
+UNLOCK TABLES;
+
+LOCK TABLES `DProducto` WRITE;
+
+INSERT INTO `DProducto` (`id_dprod`, `img_prod`, `desc_prod`, `precio_prod`, `stock_prod`)
+VALUES (1,NULL,'Descripcion de cubrebocas',50.25,180),
+       (2,NULL,'Hecha 100% de algodon, lavable.',250,80),
+       (3,NULL,'Desinfecta 100%',80,100),
+       (4,NULL,'tinta negra',10,500);
+UNLOCK TABLES;
 
 
 -->

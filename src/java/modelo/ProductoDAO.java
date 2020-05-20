@@ -53,11 +53,16 @@ public class ProductoDAO {
         String sql2 = "SELECT * FROM MProducto";
         try {
             con = cn.getConnection();
+            System.out.println("1");
             pst = con.prepareStatement(sql);
+            System.out.println("2");
             pst2 = con.prepareStatement(sql2);
+            System.out.println("3");
             rs = pst.executeQuery();
+            System.out.println("4");
             rs2 = pst2.executeQuery();
-            while(rs.next()){
+            System.out.println("5");
+            while(rs.next() && rs2.next()){
                 Producto p = new Producto();
                 p.setId(rs.getInt("id_dprod"));
                 p.setNombres(rs2.getString("nom_mprod"));
@@ -69,7 +74,9 @@ public class ProductoDAO {
             }
         } catch (SQLException e) {
             System.out.println("ERROR EN SQL :C");
-            e.getMessage();
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            
         }
         return productos;
     }

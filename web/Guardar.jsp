@@ -43,8 +43,8 @@
                 String nombre = request.getParameter("user");
                 String contra = request.getParameter("password");
                 
-                String sql = "insert into users (user,password,nivel)"
-                        + "values ('"+nombre+"','"+contra+"','"+id+"')";
+                String sql = "insert into MUsuario (user,password)"
+                        + "values ('"+nombre+"','"+contra+"')";
                 int val = sst.executeUpdate(sql);
                 con.close();
                 out.append("Registro exitoso");

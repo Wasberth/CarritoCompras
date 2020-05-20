@@ -22,14 +22,13 @@ public class ConsultaAgenda
          Connection conexion = DriverManager.getConnection(
             "jdbc:mysql://localhost/Crud", "root", "root");
          Statement st = conexion.createStatement();
-         ResultSet rs = st.executeQuery("select * from users" );
+         ResultSet rs = st.executeQuery("select * from MUsuario" );
          while (rs.next())
          {
             Contacto contacto = new Contacto();
             contacto.setId(rs.getInt("id"));
             contacto.setUser(rs.getString("user"));
             contacto.setPassword(rs.getString("password"));
-            contacto.setNivel(rs.getInt("nivel"));
             listaContactos.add(contacto);
          }
          rs.close();

@@ -38,14 +38,18 @@
             con = DriverManager.getConnection(url+bd, user, password);
             try {
                 Statement sst = con.createStatement();
+                Statement sst2 = con.createStatement();
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descr");
                 double precio = Double.parseDouble(request.getParameter("precio"));
                 int stock = Integer.parseInt(request.getParameter("stock"));
                 
-                String sql = "insert into producto (Nombres,Descripcion,Precio,Stock) "
-                        + "values ('"+nombre+"','"+descripcion+"','"+precio+"','"+stock+"')";
+                String sql = "insert into MProducto (nom_mprod) "
+                        + "values ('"+nombre+"')";
                 int val = sst.executeUpdate(sql);
+                String sql2 = "insert into DProducto (desc_prod,precio_prod,stock_prod) "
+                        + "values ('"+descripcion+"',"+precio+","+stock+")";
+                int k = sst2.executeUpdate(sql2);
                 con.close();
             } catch (SQLException e) {
                 System.out.println("No se conecto a la tabla");

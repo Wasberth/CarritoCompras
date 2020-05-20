@@ -24,9 +24,11 @@ public class ProductoDAO {
     Conexion cn = new Conexion();
     PreparedStatement pst;
     ResultSet rs;
+    PreparedStatement pst2;
+    ResultSet rs2;
     
     public Producto listarId(int id){
-        String sql = "SELECT * FROM producto where idProducto="+id;
+        String sql = "SELECT * FROM MProducto where id_mprod="+id;
         Producto p = new Producto();
         try {
             con =cn.getConnection();
@@ -47,19 +49,22 @@ public class ProductoDAO {
     
     public List listar(){
         List<Producto>productos=new ArrayList();
-        String sql = "SELECT * FROM producto";
+        String sql = "SELECT * FROM DProducto";
+        String sql2 = "SELECT * FROM MProducto";
         try {
             con = cn.getConnection();
             pst = con.prepareStatement(sql);
+            pst2 = con.prepareStatement(sql2);
             rs = pst.executeQuery();
+            rs2 = pst2.executeQuery();
             while(rs.next()){
                 Producto p = new Producto();
-                p.setId(rs.getInt(1));
-                p.setNombres(rs.getString(2));
-                p.setFoto(rs.getBinaryStream(3));
-                p.setDescripcion(rs.getString(4));
-                p.setPrecio(rs.getDouble(5));
-                p.setStock(rs.getInt(6));
+                p.setId(rs.getInt("id_dprod"));
+                p.setNombres(rs2.getString("nom_mprod"));
+                p.setFoto(rs.getBinaryStream("img_prod"));
+                p.setDescripcion(rs.getString("desc_prod"));
+                p.setPrecio(rs.getDouble("precio_prod"));
+                p.setStock(rs.getInt("stock_prod"));
                 productos.add(p);
             }
         } catch (SQLException e) {
@@ -70,7 +75,7 @@ public class ProductoDAO {
     }
     
     public void listarImg(int id, HttpServletResponse response){
-        String sql = "SELECT * FROM producto WHERE idProducto="+id;
+        String sql = "SELECT * FROM DProducto WHERE idProducto="+id;
         InputStream inputStream = null;
         OutputStream outputStream;
         BufferedInputStream bufferedInputStream = null;
@@ -81,7 +86,7 @@ public class ProductoDAO {
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery();
             if(rs.next()){
-                inputStream = rs.getBinaryStream("Foto");
+                inputStream = rs.getBinaryStream("img_prod");
             }
             bufferedInputStream = new BufferedInputStream(inputStream);
             bufferedOutputStream = new BufferedOutputStream(outputStream);

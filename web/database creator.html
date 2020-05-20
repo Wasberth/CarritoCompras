@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!--
+
+-- MySQL Workbench Forward Engineering
+-- -----------------------------------------------------
+-- Schema Crud
+-- -----------------------------------------------------
+
+DROP SCHEMA IF EXISTS Crud;
+CREATE SCHEMA `Crud` DEFAULT CHARACTER SET utf8 ;
+USE `Crud` ;
+
+-- -----------------------------------------------------
+-- Table `Crud`.`MProducto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Crud`.`MProducto` (
+  `id_mprod` INT NOT NULL AUTO_INCREMENT,
+  `nom_mprod` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_mprod`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Crud`.`DProducto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Crud`.`DProducto` (
+  `id_dprod` INT NOT NULL AUTO_INCREMENT,
+  `precio_prod` DECIMAL NOT NULL,
+  `stock_prod` INT NOT NULL,
+  `img_prod` LONGBLOB NOT NULL,
+  `desc_prod` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`id_dprod`),
+  CONSTRAINT `detalle-producto`
+    FOREIGN KEY (`id_dprod`)
+    REFERENCES `Crud`.`MProducto` (`id_mprod`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Crud`.`CDir_Emp`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Crud`.`CDir_Emp` (
+  `id_diremp` INT NOT NULL AUTO_INCREMENT,
+  `calle` VARCHAR(45) NOT NULL,
+  `int` INT NOT NULL,
+  `ext` INT NOT NULL,
+  `colonia` INT NOT NULL,
+  `cp` INT NOT NULL,
+  `ciudad` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_diremp`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Crud`.`CPrivilegio_Empleado`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Crud`.`CPrivilegio_Empleado` (
+  `id_cpe` INT NOT NULL AUTO_INCREMENT,
+  `tipo_cpe` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_cpe`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Crud`.`MEmpleado`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Crud`.`MEmpleado` (
+  `id_emp` INT NOT NULL AUTO_INCREMENT,
+  `nom_emp` VARCHAR(45) NOT NULL,
+  `appat_emp` VARCHAR(45) NOT NULL,
+  `apmat_emp` VARCHAR(45) NOT NULL,
+  `fecnac_emp` DATETIME NOT NULL,
+  `dir_emp` INT NOT NULL,
+  `tel_emp` INT NOT NULL,
+  `cel_emp` INT NOT NULL,
+  `id_cpe` INT NOT NULL,
+  PRIMARY KEY (`id_emp`),
+  CONSTRAINT `direccion`
+    FOREIGN KEY (`dir_emp`)
+    REFERENCES `Crud`.`CDir_Emp` (`id_diremp`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `privilegio`
+    FOREIGN KEY (`id_cpe`)
+    REFERENCES `Crud`.`CPrivilegio_Empleado` (`id_cpe`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Crud`.`MUsuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Crud`.`MUsuario` (
+  `id_cliente` INT NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `nom_cli` VARCHAR(45) NOT NULL,
+  `appat_cli` VARCHAR(45) NOT NULL,
+  `apmat_cli` VARCHAR(45) NOT NULL,
+  `fecnac_cli` VARCHAR(45) NOT NULL,
+  `dir_cli` VARCHAR(45) NOT NULL,
+  `tel_cli` VARCHAR(45) NOT NULL,
+  `cel_cli` VARCHAR(45) NOT NULL,
+  `dir_entrega_cli` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_cliente`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Crud`.`DCompra`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Crud`.`DCompra` (
+  `id_cc` INT NOT NULL AUTO_INCREMENT,
+  `id_prod` INT NOT NULL,
+  `cantidad_cc` INT NOT NULL,
+  `subtotal` DOUBLE NOT NULL,
+  `total_cc` DOUBLE NOT NULL,
+  `fecha` DATETIME NOT NULL,
+  PRIMARY KEY (`id_cc`),
+  CONSTRAINT `producto`
+    FOREIGN KEY (`id_prod`)
+    REFERENCES `Crud`.`MProducto` (`id_mprod`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Crud`.`EClienteCom`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Crud`.`EClienteCom` (
+  `id_ecc` INT NOT NULL AUTO_INCREMENT,
+  `id_cli` INT NOT NULL,
+  `id_cc` INT NOT NULL,
+  PRIMARY KEY (`id_ecc`),
+  CONSTRAINT `cliente`
+    FOREIGN KEY (`id_cli`)
+    REFERENCES `Crud`.`MUsuario` (`id_cliente`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `carrito`
+    FOREIGN KEY (`id_cc`)
+    REFERENCES `Crud`.`DCompra` (`id_cc`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Crud`.`DOrdenServicio`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Crud`.`DOrdenServicio` (
+  `id_dordser` INT NOT NULL AUTO_INCREMENT,
+  `id_cli` INT NOT NULL,
+  `id_emp` INT NOT NULL,
+  `descripcion` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`id_dordser`),
+  CONSTRAINT `cliente`
+    FOREIGN KEY (`id_cli`)
+    REFERENCES `Crud`.`MUsuario` (`id_cliente`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `emp`
+    FOREIGN KEY (`id_emp`)
+    REFERENCES `Crud`.`MEmpleado` (`id_emp`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Crud`.`MOrdenServicio`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Crud`.`MOrdenServicio` (
+  `id_ors` INT NOT NULL AUTO_INCREMENT,
+  `id_dorser` INT NOT NULL,
+  `fecha` DATETIME NOT NULL,
+  `poliza` VARCHAR(45) NOT NULL,
+  `resolucion` TINYINT NOT NULL,
+  PRIMARY KEY (`id_ors`),
+  CONSTRAINT `DOrdenServicio`
+    FOREIGN KEY (`id_dorser`)
+    REFERENCES `Crud`.`DOrdenServicio` (`id_dordser`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Crud`.`MCompra`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Crud`.`MCompra` (
+  `id_com` INT NOT NULL AUTO_INCREMENT,
+  `d_com` INT NOT NULL,
+  PRIMARY KEY (`id_com`),
+  CONSTRAINT `compra`
+    FOREIGN KEY (`d_com`)
+    REFERENCES `Crud`.`DCompra` (`id_cc`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+
+-->
+

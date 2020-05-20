@@ -28,7 +28,7 @@ public class Operaciones {
             ResultSet rs;
             int cont=0;
             int nivel = 0;
-            String sql = "SELECT nivel FROM users where user='"+usuario+"' and password='"+password+"'";
+            String sql = "SELECT nivel FROM MUsuario where user='"+usuario+"' and password='"+password+"'";
         try {
             
             Class.forName(this.driver);

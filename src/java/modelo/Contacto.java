@@ -8,7 +8,6 @@ public class Contacto {
     int id;
     String user;
     String password;
-    int nivel;
 
     public int getId() {
         return id;
@@ -34,12 +33,4 @@ public class Contacto {
         this.password = password;
     }
 
-    public int getNivel() {
-        return nivel;
     }
-
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
-    }
-    
-}

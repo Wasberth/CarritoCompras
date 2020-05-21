@@ -72,6 +72,7 @@ public class ProductoDAO {
                 p.setStock(rs.getInt("stock_prod"));
                 productos.add(p);
             }
+            System.out.println("Lista prodductos \n"+productos.toString());
         } catch (SQLException e) {
             System.out.println("ERROR EN SQL :C");
             System.out.println(e.getMessage());
@@ -82,7 +83,7 @@ public class ProductoDAO {
     }
     
     public void listarImg(int id, HttpServletResponse response){
-        String sql = "SELECT * FROM DProducto WHERE idProducto="+id;
+        /*String sql = "SELECT * FROM DProducto WHERE idProducto="+id;
         InputStream inputStream = null;
         OutputStream outputStream;
         BufferedInputStream bufferedInputStream = null;
@@ -102,7 +103,7 @@ public class ProductoDAO {
                 bufferedOutputStream.write(i);
             }
         } catch (IOException | SQLException e) {
-        }
+        }*/
         
     }
     

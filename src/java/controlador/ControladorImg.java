@@ -44,7 +44,7 @@ public class ControladorImg extends HttpServlet {
         processRequest(request, response);
         
         int id = Integer.parseInt(request.getParameter("id"));
-        pdao.listarImg(id, response);
+        //pdao.listarImg(id, response);
     }
 
     @Override

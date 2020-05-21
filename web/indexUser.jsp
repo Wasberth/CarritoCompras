@@ -58,7 +58,6 @@
                 </div>
             </nav>
         </div>
-                        <h1>PRESIONAR HOME PARA VER PRODUCTOS (Estoy trabajando para que se muestre enseguida xD)</h1>
         
         <div class="container mt-4">
             <div class="row">

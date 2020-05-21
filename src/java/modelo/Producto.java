@@ -12,7 +12,7 @@ public class Producto {
     String nombres;
     InputStream foto;
     String descripcion;
-    double precio;
+    double precio=0.0;
     int stock;
     
     public Producto(){

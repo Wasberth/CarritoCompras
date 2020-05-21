@@ -74,7 +74,7 @@
                             case 2:
                                 sesion.setAttribute("user", nomUser);
                                 sesion.setAttribute("nivel", "2");
-                                response.sendRedirect("indexUser.jsp");
+                                response.sendRedirect("Controlador?accion=home");
                                 break;
 
                             default:

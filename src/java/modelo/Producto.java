@@ -12,7 +12,7 @@ public class Producto {
     String nombres;
     InputStream foto;
     String descripcion;
-    double precio=0.0;
+    double precio;
     int stock;
     
     public Producto(){
@@ -66,6 +66,8 @@ public class Producto {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+                System.out.println(this.precio);
+
     }
 
     public int getStock() {

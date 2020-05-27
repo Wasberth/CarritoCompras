@@ -1,11 +1,6 @@
 package modelo;
 
 import config.Conexion;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,41 +9,46 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author PORTO
- */
 public class ProductoDAO {
-    
+
     Connection con;
     Conexion cn = new Conexion();
     PreparedStatement pst;
     ResultSet rs;
     PreparedStatement pst2;
     ResultSet rs2;
-    
-    public Producto listarId(int id){
-        String sql = "SELECT * FROM MProducto where id_mprod="+id;
+
+    public Producto listarId(int id) {
+        String sql = "SELECT * FROM MProducto where id_mprod=" + id;
+
+        String sql2 = "SELECT * FROM dproducto where id_dprod=" + id;
+
         Producto p = new Producto();
+
         try {
-            con =cn.getConnection();
+            con = cn.getConnection();
             pst = con.prepareStatement(sql);
+            pst2 = con.prepareStatement(sql2);
             rs = pst.executeQuery();
-            while(rs.next()){
+            rs2 = pst2.executeQuery();
+            while (rs.next() && rs2.next()) {
                 p.setId(rs.getInt(1));
-                p.setNombres(rs.getString(2));
-                p.setFoto(rs.getBinaryStream(3));
-                p.setDescripcion(rs.getString(4));
-                p.setPrecio(rs.getDouble(5));
-                p.setStock(rs.getInt(6));
+                p.setNombres(rs.getString("nom_mprod"));
+                p.setFoto(rs2.getBinaryStream("img_prod"));
+                p.setDescripcion(rs2.getString("desc_prod"));
+                p.setPrecio(rs2.getDouble("precio_prod"));
+                p.setStock(rs2.getInt("stock_prod"));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("Error en listar Id");
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return p;
     }
-    
-    public List listar(){
-        List<Producto>productos=new ArrayList();
+
+    public List listar() {
+        List<Producto> productos = new ArrayList();
         String sql = "SELECT * FROM DProducto";
         String sql2 = "SELECT * FROM MProducto";
         try {
@@ -62,27 +62,28 @@ public class ProductoDAO {
             System.out.println("4");
             rs2 = pst2.executeQuery();
             System.out.println("5");
-            while(rs.next() && rs2.next()){
+            while (rs.next() && rs2.next()) {
                 Producto p = new Producto();
-                p.setId(rs.getInt("id_dprod"));
+                p.setId(rs.getInt(1));
                 p.setNombres(rs2.getString("nom_mprod"));
                 p.setFoto(rs.getBinaryStream("img_prod"));
                 p.setDescripcion(rs.getString("desc_prod"));
                 p.setPrecio(rs.getDouble("precio_prod"));
                 p.setStock(rs.getInt("stock_prod"));
                 productos.add(p);
+
             }
-            System.out.println("Lista prodductos \n"+productos.toString());
+
         } catch (SQLException e) {
             System.out.println("ERROR EN SQL :C");
             System.out.println(e.getMessage());
             e.printStackTrace();
-            
+
         }
         return productos;
     }
-    
-    public void listarImg(int id, HttpServletResponse response){
+
+    public void listarImg(int id, HttpServletResponse response) {
         /*String sql = "SELECT * FROM DProducto WHERE idProducto="+id;
         InputStream inputStream = null;
         OutputStream outputStream;
@@ -104,8 +105,7 @@ public class ProductoDAO {
             }
         } catch (IOException | SQLException e) {
         }*/
-        
+
     }
-    
-    
+
 }

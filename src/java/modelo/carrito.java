@@ -66,7 +66,6 @@ public class carrito {
 
     public void setPrecioCompra(double precioCompra) {
         this.precioCompra = precioCompra;
-                        System.out.println("Precio carrito"+this.precioCompra);
 
     }
 

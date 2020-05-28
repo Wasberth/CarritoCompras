@@ -2,6 +2,7 @@ package controlador;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +33,7 @@ public class Controlador extends HttpServlet {
         productos = pdao.listar();
         int idp;
         carrito car;
+        System.out.println(accion);
         switch (accion) {
             case "AgregarCarrito":
                 int pos = 0;
@@ -51,6 +53,7 @@ public class Controlador extends HttpServlet {
                             listacarrito.get(pos).setSubTotal(subtotal);
 
                         } else {
+                            System.out.println("Wha?");
                             item = item + 1;
                             car = new carrito();
                             car.setItem(item);
@@ -62,6 +65,7 @@ public class Controlador extends HttpServlet {
                             car.setSubTotal(cantidad * p.getPrecio());
 
                             listacarrito.add(car);
+                            System.out.println(listacarrito);
                         }
                     }
 
@@ -115,7 +119,8 @@ public class Controlador extends HttpServlet {
                 request.setAttribute("totalPagar", totalPagar);
                 request.setAttribute("carrito", listacarrito);
                 request.setAttribute("contador", listacarrito.size());
-
+                request.setAttribute("accion", "carrito");
+                
                 request.getRequestDispatcher("carrito.jsp").forward(request, response);
                 break;
 
@@ -125,11 +130,12 @@ public class Controlador extends HttpServlet {
                     if (listacarrito.get(i).getIdProducto() == idproducto) {
                         listacarrito.remove(i);
                     }
-
                 }
+                request.getRequestDispatcher("carrito.jsp").forward(request, response);
                 break;
-
+                
             default:
+                System.out.println("default");
                 request.setAttribute("productos", productos);
                 request.getRequestDispatcher("indexUser.jsp").forward(request, response);
         }

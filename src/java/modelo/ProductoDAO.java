@@ -53,15 +53,10 @@ public class ProductoDAO {
         String sql2 = "SELECT * FROM MProducto";
         try {
             con = cn.getConnection();
-            System.out.println("1");
             pst = con.prepareStatement(sql);
-            System.out.println("2");
             pst2 = con.prepareStatement(sql2);
-            System.out.println("3");
             rs = pst.executeQuery();
-            System.out.println("4");
             rs2 = pst2.executeQuery();
-            System.out.println("5");
             while (rs.next() && rs2.next()) {
                 Producto p = new Producto();
                 p.setId(rs.getInt(1));

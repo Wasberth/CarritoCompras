@@ -1,8 +1,8 @@
 package modelado;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -17,7 +17,7 @@ public class Operaciones {
         driver="com.mysql.jdbc.Driver";
         url="jdbc:mysql://localhost:3306/Crud";
         user="root";
-        passwordBd="root";
+        passwordBd="n0m3l0";
     }
     
     //Entero por que retorna el nivel de usuario

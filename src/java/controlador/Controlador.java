@@ -1,13 +1,18 @@
 package controlador;
 
+import config.Fecha;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelado.Cliente;
+import modelado.Compra;
+import modelado.Pago;
+import modelo.CompraDAO;
+import modelo.Contacto;
 import modelo.Producto;
 import modelo.ProductoDAO;
 import modelo.carrito;
@@ -120,7 +125,7 @@ public class Controlador extends HttpServlet {
                 request.setAttribute("carrito", listacarrito);
                 request.setAttribute("contador", listacarrito.size());
                 request.setAttribute("accion", "carrito");
-                
+
                 request.getRequestDispatcher("carrito.jsp").forward(request, response);
                 break;
 
@@ -133,7 +138,35 @@ public class Controlador extends HttpServlet {
                 }
                 request.getRequestDispatcher("carrito.jsp").forward(request, response);
                 break;
-                
+
+            case "ActualizarCantidad":
+                //NO SIRVE XD
+                int idpro = Integer.parseInt(request.getParameter("id"));
+                int cant = Integer.parseInt(request.getParameter("Cantidad"));
+                for (int i = 0; i < listacarrito.size(); i++) {
+                    if (listacarrito.get(i).getIdProducto() == idpro) {
+                        listacarrito.get(i).setCantidad(cant);
+                        double st = listacarrito.get(i).getPrecioCompra() * cant;
+                        listacarrito.get(i).setSubTotal(st);
+                    }
+
+                }
+                break;
+
+            case "generarCompra":
+                Cliente cliente = new Cliente();
+                Pago pago = new Pago();
+                CompraDAO dao = new CompraDAO();
+                Contacto contacto = new Contacto();
+                cliente.setId(1);
+                Compra compra = new Compra(cliente,1,Fecha.FechaBD(),totalPagar,listacarrito,cantidad);
+                int res = dao.generarCompra(compra);
+                if(res!=0&&totalPagar>0){
+                    request.getRequestDispatcher("vistas/mensaje.jsp").forward(request,response);
+                }else{
+                    request.getRequestDispatcher("vistas/error.jsp").forward(request,response);
+                }
+                break;
             default:
                 System.out.println("default");
                 request.setAttribute("productos", productos);

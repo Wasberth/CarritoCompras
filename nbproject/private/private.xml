@@ -3,9 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/david/Desktop/CarritoCompras-master/CarritoCompras-master/web/indexUser.jsp</file>
-            <file>file:/C:/Users/david/Desktop/CarritoCompras-master/CarritoCompras-master/src/java/controlador/Controlador.java</file>
-            <file>file:/C:/Users/david/Desktop/CarritoCompras-master/CarritoCompras-master/src/java/modelo/ProductoDAO.java</file>
+            <file>file:/C:/Users/PORTO/Documents/NetBeansProjects/Crud_P1/CarritoCompras/src/java/modelo/Producto.java</file>
+            <file>file:/C:/Users/PORTO/Documents/NetBeansProjects/Crud_P1/CarritoCompras/src/java/modelo/ProductoDAO.java</file>
+            <file>file:/C:/Users/PORTO/Documents/NetBeansProjects/Crud_P1/CarritoCompras/src/java/config/Conexion.java</file>
+            <file>file:/C:/Users/PORTO/Documents/NetBeansProjects/Crud_P1/CarritoCompras/src/java/modelo/carrito.java</file>
+            <file>file:/C:/Users/PORTO/Documents/NetBeansProjects/Crud_P1/CarritoCompras/src/java/controlador/Controlador.java</file>
+            <file>file:/C:/Users/PORTO/Documents/NetBeansProjects/Crud_P1/CarritoCompras/src/java/modelo/ConsultaAgenda.java</file>
+            <file>file:/C:/Users/PORTO/Documents/NetBeansProjects/Crud_P1/CarritoCompras/web/js/funciones.js</file>
+            <file>file:/C:/Users/PORTO/Documents/NetBeansProjects/Crud_P1/CarritoCompras/src/java/modelado/Operaciones.java</file>
+            <file>file:/C:/Users/PORTO/Documents/NetBeansProjects/Crud_P1/CarritoCompras/src/java/modelo/Contacto.java</file>
         </group>
     </open-files>
 </project-private>

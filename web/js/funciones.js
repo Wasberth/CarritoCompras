@@ -56,6 +56,8 @@ function eliminar(id) {
                 data: {id: id},
                 dataType: 'json',
                 success: function (data, textStatus, jqXHR) {
+                    location.href="Controlador?accion=Carrito";
+
                     alert("Producto eliminado exitosamente");
                 }
             });
@@ -65,6 +67,22 @@ function eliminar(id) {
         } else {
             swal("Your imaginary file is safe!");
         }
+        
+        $("tr #Cantidad").click(function (){
+            var idp = $(this).parent().find("#id").val();
+            var cantidad = $(this).parent().find("#Cantidad").val();
+            var url = "Controlador?accion = ActualizarCantidad";
+            $.ajax({
+               type:'POST',
+               url:url,
+               data: "idp="+idp+"&Cantidad="+cantidad,
+               success: function(data,textStatus,jqXHR){
+                   location.href="Controlador?accion=Carrito";
+               }
+                
+            });
+        });
+        
     });
 
 }

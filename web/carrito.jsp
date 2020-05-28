@@ -80,12 +80,12 @@
                                 <td>${car.getPrecioCompra()}</td>
                                
                                 <td>
-                                    <input type="hidden" id="idpro" value="${car.getIdProducto()}">
+                                    <input type="hidden" id="id" value="${car.getIdProducto()}">
                                     <input type="number" id="Cantidad" value="${car.getCantidad()}" class="form-control text-center" min="1">
                                 </td>
                                 <td>${car.getSubTotal()}</td>
                                 <td>
-<!--                                    <input type="hidden" id="idp" type="text" value="${car.getIdProducto()}"></input>-->
+<!--                                    <input type="hidden" id="idpro" type="text" value="${car.getIdProducto()}"></input>-->
                                     <a href="#" id="btnDelete" onclick="return eliminar(${car.getIdProducto()})">Eliminar</a>
                                 </td>
                             </tr>
@@ -108,7 +108,7 @@
                         </div>
                         <div class="card-footer">
                             <a href="$" class="btn btn-info btn-block">Realizar Pago</a>
-                            <a href="$" class="btn btn-danger">Generar Compra</a>
+                            <a href="Controlador?accion=generarCompra" class="btn btn-danger">Generar Compra</a>
                         </div>
                     </div>
                 </div>

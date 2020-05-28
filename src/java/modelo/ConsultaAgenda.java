@@ -20,7 +20,7 @@ public class ConsultaAgenda
       {
          Class.forName("org.gjt.mm.mysql.Driver");
          Connection conexion = DriverManager.getConnection(
-            "jdbc:mysql://localhost/Crud", "root", "n0m3l0");
+            "jdbc:mysql://localhost/Crud", "root", "root");
          Statement st = conexion.createStatement();
          ResultSet rs = st.executeQuery("select * from MUsuario" );
          while (rs.next())

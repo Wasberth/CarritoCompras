@@ -81,7 +81,7 @@
                                
                                 <td>
                                     <input type="hidden" id="id" value="${car.getIdProducto()}">
-                                    <input type="number" id="Cantidad" value="${car.getCantidad()}" class="form-control text-center" min="1">
+                                    <input type="text" disabled id="Cantidad" value="${car.getCantidad()}" class="form-control text-center" min="1">
                                 </td>
                                 <td>${car.getSubTotal()}</td>
                                 <td>

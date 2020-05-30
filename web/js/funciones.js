@@ -1,49 +1,7 @@
-//$(document).ready(function () {
-//    $("tr #btnDelete").click(function () {
-//        var id = $(this).parent().find("#idp").val();
-//        console.log($(this).parent().find("#idp").values());
-//        swal({
-//            title: "Are you sure?",
-//            text: "Once deleted, you will not be able to recover this imaginary file!",
-//            icon: "warning",
-//            buttons: true,
-//            dangerMode: true,
-//        })
-//                .then((willDelete) => {
-//                    if (willDelete) {
-//                        eliminar(id);
-//                        swal("Poof! Your imaginary file has been deleted!", {
-//                            icon: "success",
-//                        }).then((willDelete) => {
-//                            if (willDelete) {
-//                                parent.location.href = "Controlador?accion=carrito";
-//                            }
-//                        });
-//                    } else {
-//                        swal("Your imaginary file is safe!");
-//                    }
-//                });
-//
-//    });
-//
-//    $("tr #Cantidad").click(function () {
-//        var id = $(this).parent().find("$idpro").val();
-//        var cantidad = $(this).parent().find("#Cantidad").val();
-//        var url = "Controlador?accion=ActualizarCantidad";
-//        $.ajax({
-//            type: 'POST',
-//            url: url,
-//            data
-//        })
-//    })
-//});
-
-
-
 function eliminar(id) {
     swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        title: "Estas seguro?",
+        text: "Se eliminará el artículo del carrito",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -58,17 +16,26 @@ function eliminar(id) {
                 success: function (data, textStatus, jqXHR) {
                     location.href="Controlador?accion=Carrito";
 
-                    alert("Producto eliminado exitosamente");
                 }
             });
-            swal("Poof! Your imaginary file has been deleted!", {
+            
+            swal("Se ha eliminado correctamente el artículo del carrito", {
                 icon: "success",
+
             });
+            location.reload();
         } else {
-            swal("Your imaginary file is safe!");
+            swal("No se elimino ningún articulo");
         }
         
-        $("tr #Cantidad").click(function (){
+        
+        
+        
+    });
+
+}
+
+function actualizar(){
             var idp = $(this).parent().find("#id").val();
             var cantidad = $(this).parent().find("#Cantidad").val();
             var url = "Controlador?accion = ActualizarCantidad";
@@ -81,8 +48,5 @@ function eliminar(id) {
                }
                 
             });
-        });
+        }
         
-    });
-
-}

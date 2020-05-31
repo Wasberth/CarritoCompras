@@ -18,6 +18,18 @@
     </head>
 
     <body>
+        <%
+            try{
+                HttpSession sesion = request.getSession();
+                sesion.getAttribute("user");
+                sesion.getAttribute("nivel");
+                String nom_user = sesion.getAttribute("user").toString();
+            }catch(Exception e){
+                response.sendRedirect("ErrorPage.jsp");
+            }
+            
+
+        %>
         <div class="container nt-2">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="#">COVID-19 Shop</a>
@@ -29,6 +41,8 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
                             <a class="nav-link" href="Controlador?accion=home">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="Logout.jsp" name="cerrarSesion">Cerrar Sesion</a>
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="Controlador?accion=Carrito"><i class="fas fa-cart-plus">(<label style="color: orange">${contador}</label>)</i>Carrito de compras</a>

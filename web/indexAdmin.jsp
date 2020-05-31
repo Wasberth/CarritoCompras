@@ -14,16 +14,14 @@
     <body>
         <%
         
-        HttpSession sesion = request.getSession();
-        String usuario;
-        
-        if(sesion.getAttribute("user")!=null){
-            usuario = sesion.getAttribute("user").toString();
-            out.append("<a href='index.jsp'?cerrar=true><h5>Cerrar Sesion "+usuario+"</h5></a>");    
-        }else{
-            out.append("<script>location.replace['login.jsp'];</script>");
-        }
-        
+        try{
+                HttpSession sesion = request.getSession();
+                sesion.getAttribute("user");
+                sesion.getAttribute("nivel");
+                String nom_user = sesion.getAttribute("user").toString();
+            }catch(Exception e){
+                response.sendRedirect("ErrorPage.jsp");
+            }
         %>
         <h1>Estás en la página de administradores (Todavia no tiene diseño)</h1>
         <br>
@@ -31,5 +29,6 @@
         <a href="ConsultarAdmin.jsp">Consultar perfiles</a><br>
         <a href="ModificarArticuloAdmin.jsp">Modificar articulo</a><br>
         <a href="DeleteArticuloAdmin.jsp">Eliminar articulo</a><br>
+        <a href="Logout.jsp">Cerrar sesion</a><br>
     </body>
 </html>

@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.LinkedList;
+import modelo.Contacto;
 
 public class ConsultaAgenda 
 {
@@ -20,23 +21,22 @@ public class ConsultaAgenda
       {
          Class.forName("org.gjt.mm.mysql.Driver");
          Connection conexion = DriverManager.getConnection(
-            "jdbc:mysql://localhost/Crud", "root", "root");
+            "jdbc:mysql://localhost:3306/crud", "root", "root");
          Statement st = conexion.createStatement();
-         ResultSet rs = st.executeQuery("select * from MUsuario" );
+         ResultSet rs = st.executeQuery("select * from musuario" );
          while (rs.next())
          {
             Contacto contacto = new Contacto();
-            contacto.setId(rs.getInt("id"));
-            contacto.setUser(rs.getString("user"));
+            contacto.setId(rs.getInt("id_usr"));
+            contacto.setUser(rs.getString("username"));
             contacto.setPassword(rs.getString("password"));
+            contacto.setNivel(rs.getInt("nivel"));
             listaContactos.add(contacto);
          }
-         rs.close();
-         st.close();
-         conexion.close();
       }
       catch (Exception e)
       {
+          System.out.println("No se conecto a consultar ");
          e.printStackTrace();
       }
       return listaContactos;

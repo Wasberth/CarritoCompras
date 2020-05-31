@@ -4,40 +4,42 @@
     Author     : PORTO
 --%>
 
-<%@ page language="java" %>
-<%@ page import = "Bean.Contacto"%>
-<%@ page import = "Bean.ModificaAgenda"%>
-
+<%@ page language="java" %>     
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="modelado.ModificaAgenda" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Modificar Agenda</title>
     </head>
-    <body>
-        <h1>Los datos se han actualizado correctamente</h1>
-        
+    <body>        
          <%
              
-            String Nombre,descripcion;
+            String nombre,descripcion;
             double precio;
+            int stock; 
             
-                        Nombre=request.getParameter("nom_prod");
+            nombre=request.getParameter("nombre_producto");
             descripcion=request.getParameter("desc_prod");
             precio=Double.parseDouble(request.getParameter("precio_prod"));
+            stock = Integer.parseInt(request.getParameter("stock_prod"));
+            System.out.println("Articulos recibidos en modificar.jsp \n"+nombre+"\n"+descripcion+"\n"+precio+"\n"+stock);
             ModificaAgenda objmodif=new ModificaAgenda();
-            if (objmodif.modificarUsuario(Nombre,descripcion,precio)){
-                out.println("articulo actualizado correctamente");
+            if (objmodif.modificarArticulo(nombre,descripcion,precio,stock)==true){
+                out.println("Articulo actualizado correctamente");
 
             } else {
-                out.println("Error en la actualización");
-                
+                out.println("Hubo un error en la actualización del artículo y puede tener varias razones: ");
+                out.append("1. No existe el articulo\n");
+                out.append("2. Precios invalidos.\n");
+                out.append("3. Stock invalidos.\n");
             }
  %>
           
         
-        <br><br>
-                <a href="indexAdmin.jsp">Volver a Menú</a>
+        <br>
+                <a href="indexAdmin.jsp">Volver a Menú</a><br>
+                <a href="ModificarArticuloAdmin.jsp">Modificar otro artículo</a>
     </body>
 </html>

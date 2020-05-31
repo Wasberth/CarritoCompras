@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Producto;
 
 public class ProductoDAO {
 
@@ -76,6 +77,47 @@ public class ProductoDAO {
 
         }
         return productos;
+    }
+
+    public boolean verificar(String nom_mprod) {
+        System.out.println("Nombre recibido en productodao " + nom_mprod);
+        List<Producto> productos = new ArrayList();
+        String sql2 = "SELECT * FROM mproducto";
+        try {
+            boolean verificador = false;
+            con = cn.getConnection();
+            pst2 = con.prepareStatement(sql2);
+            rs2 = pst2.executeQuery();
+            while (rs2.next()) {
+                Producto p = new Producto();
+                p.setNombres(rs2.getString("nom_mprod"));
+                productos.add(p);
+                for (int i = 0; i < productos.size(); i++) {
+                    if (productos.get(i).getNombres() == nom_mprod) {
+                        System.out.println("Existe 1");
+                        verificador = true;
+                    } else {
+                        System.out.println("No existe 1");
+                        verificador = false;
+                    }
+                }//Termina for
+                if (verificador == true) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            con.close();
+            pst2.close();
+            rs2.close();
+        } catch (SQLException e) {
+            System.out.println("ERROR EN SQL :C");
+            System.out.println(e.getMessage());
+            return false;
+
+        }
+
+        return true;
     }
 
     public void listarImg(int id, HttpServletResponse response) {

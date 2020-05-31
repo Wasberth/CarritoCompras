@@ -27,7 +27,9 @@
         %>
         <h1>Estás en la página de administradores (Todavia no tiene diseño)</h1>
         <br>
-        <a href="Agregar.jsp">Agregar articulo</a>
-        <a href="ConsultarAdmin.jsp">Consultar perfiles</a>
+        <a href="Agregar.jsp">Agregar articulo</a><br>
+        <a href="ConsultarAdmin.jsp">Consultar perfiles</a><br>
+        <a href="ModificarArticuloAdmin.jsp">Modificar articulo</a><br>
+        <a href="DeleteArticuloAdmin.jsp">Eliminar articulo</a><br>
     </body>
 </html>

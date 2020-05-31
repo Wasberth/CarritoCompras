@@ -8,10 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelado.Cliente;
-import modelado.Compra;
-import modelado.Pago;
-import modelo.CompraDAO;
 import modelo.Contacto;
 import modelo.Producto;
 import modelo.ProductoDAO;
@@ -154,18 +150,6 @@ public class Controlador extends HttpServlet {
                 break;
 
             case "generarCompra":
-                Cliente cliente = new Cliente();
-                Pago pago = new Pago();
-                CompraDAO dao = new CompraDAO();
-                Contacto contacto = new Contacto();
-                cliente.setId(1);
-                //Compra compra = new Compra(cliente,1,Fecha.FechaBD(),totalPagar,listacarrito,cantidad);
-                //int res = dao.generarCompra(compra);
-                //if(res!=0&&totalPagar>0){
-                  //  request.getRequestDispatcher("vistas/mensaje.jsp").forward(request,response);
-                //}else{
-                  //  request.getRequestDispatcher("vistas/error.jsp").forward(request,response);
-                //}
                 break;
             default:
                 System.out.println("default");

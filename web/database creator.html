@@ -8,9 +8,8 @@ Términos y condiciones, acepta cookies inmediatamente
 -->
 <!--
 
--- MySQL Workbench Forward Engineering
 -- -----------------------------------------------------
--- Schema Crud
+-- Schema crud
 -- -----------------------------------------------------
 
 DROP DATABASE IF EXISTS Crud;
@@ -57,29 +56,36 @@ CREATE TABLE IF NOT EXISTS `Crud`.`MUsuario` (
   PRIMARY KEY (`id_usr`)
 );
 
-ALTER TABLE MEmpleado AUTO_INCREMENT = 1;
 
 -- -----------------------------------------------------
 -- Table `Crud`.`DCompra`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Crud`.`DCompra` (
   `id_cc` INT NOT NULL AUTO_INCREMENT,
-  `id_prod` INT NOT NULL,
-  `cantidad_cc` INT NOT NULL,
   `subtotal` DOUBLE NOT NULL,
   `total_cc` DOUBLE NOT NULL,
   `fecha` DATETIME NOT NULL,
-  PRIMARY KEY (`id_cc`),
-  CONSTRAINT `compra-producto`
-    FOREIGN KEY (`id_prod`)
-    REFERENCES `Crud`.`MProducto` (`id_mprod`)
+  PRIMARY KEY (`id_cc`)
+);
+
+
+-- -----------------------------------------------------
+-- Table `Crud`.`MCompra`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `crud`.`MCompra` (
+  `id_com` INT NOT NULL AUTO_INCREMENT,
+  `d_com` INT NOT NULL,
+  PRIMARY KEY (`id_com`),
+  CONSTRAINT `compra`
+    FOREIGN KEY (`d_com`)
+    REFERENCES `crud`.`DCompra` (`id_cc`)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
 
 
 -- -----------------------------------------------------
--- Table `Crud`.`EClienteCom`
+-- Table `crud`.`EClienteCom`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Crud`.`EClienteCom` (
   `id_ecc` INT NOT NULL AUTO_INCREMENT,
@@ -93,22 +99,29 @@ CREATE TABLE IF NOT EXISTS `Crud`.`EClienteCom` (
     ON UPDATE CASCADE,
   CONSTRAINT `carrito-cliente`
     FOREIGN KEY (`id_cc`)
-    REFERENCES `Crud`.`DCompra` (`id_cc`)
+    REFERENCES `Crud`.`MCompra` (`id_com`)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
 
 
 -- -----------------------------------------------------
--- Table `Crud`.`MCompra`
+-- Table `crud`.`ETicket`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Crud`.`MCompra` (
-  `id_com` INT NOT NULL AUTO_INCREMENT,
-  `d_com` INT NOT NULL,
-  PRIMARY KEY (`id_com`),
-  CONSTRAINT `detalle-compra`
-    FOREIGN KEY (`d_com`)
-    REFERENCES `Crud`.`DCompra` (`id_cc`)
+CREATE TABLE IF NOT EXISTS `crud`.`ETicket` (
+  `idTicket` INT NOT NULL AUTO_INCREMENT,
+  `id_mprod` INT NOT NULL,
+  `id_com` INT NOT NULL,
+  `cantidad` INT NOT NULL,
+  PRIMARY KEY (`idTicket`),
+  CONSTRAINT `ticket_compra`
+    FOREIGN KEY (`id_com`)
+    REFERENCES `crud`.`MCompra` (`id_com`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `ticket_producto`
+    FOREIGN KEY (`id_mprod`)
+    REFERENCES `crud`.`MProducto` (`id_mprod`)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );

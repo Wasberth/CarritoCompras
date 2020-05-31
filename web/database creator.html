@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <!--
+FALTA:
+
+Evaluar nombre y contraseña sin acentos ni Ñ en el formulario
+Términos y condiciones, acepta cookies inmediatamente
+
+-->
+<!--
 
 -- MySQL Workbench Forward Engineering
 -- -----------------------------------------------------
 -- Schema Crud
 -- -----------------------------------------------------
 
+DROP DATABASE IF EXISTS Crud;
 DROP SCHEMA IF EXISTS Crud;
-CREATE SCHEMA `Crud` DEFAULT CHARACTER SET utf8 ;
+CREATE DATABASE `Crud`;
 USE `Crud` ;
 
 -- -----------------------------------------------------
@@ -16,8 +24,8 @@ USE `Crud` ;
 CREATE TABLE IF NOT EXISTS `Crud`.`MProducto` (
   `id_mprod` INT NOT NULL AUTO_INCREMENT,
   `nom_mprod` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_mprod`))
-ENGINE = InnoDB;
+  PRIMARY KEY (`id_mprod`)
+);
 
 
 -- -----------------------------------------------------
@@ -34,8 +42,8 @@ CREATE TABLE IF NOT EXISTS `Crud`.`DProducto` (
     FOREIGN KEY (`id_dprod`)
     REFERENCES `Crud`.`MProducto` (`id_mprod`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE
+);
 
 
 -- -----------------------------------------------------
@@ -45,17 +53,9 @@ CREATE TABLE IF NOT EXISTS `Crud`.`MUsuario` (
   `id_usr` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
-  `nom_cli` VARCHAR(45) NOT NULL,
-  `appat_cli` VARCHAR(45) NOT NULL,
-  `apmat_cli` VARCHAR(45) NOT NULL,
-  `fecnac_cli` VARCHAR(45) NOT NULL,
-  `dir_cli` VARCHAR(45) NOT NULL,
-  `tel_cli` VARCHAR(45) NOT NULL,
-  `cel_cli` VARCHAR(45) NOT NULL,
-  `dir_entrega_cli` VARCHAR(45) NOT NULL,
   `nivel` INT NOT NULL DEFAULT 2,
-  PRIMARY KEY (`id_usr`))
-ENGINE = InnoDB;
+  PRIMARY KEY (`id_usr`)
+);
 
 ALTER TABLE MEmpleado AUTO_INCREMENT = 1;
 
@@ -74,8 +74,8 @@ CREATE TABLE IF NOT EXISTS `Crud`.`DCompra` (
     FOREIGN KEY (`id_prod`)
     REFERENCES `Crud`.`MProducto` (`id_mprod`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE
+);
 
 
 -- -----------------------------------------------------
@@ -95,8 +95,8 @@ CREATE TABLE IF NOT EXISTS `Crud`.`EClienteCom` (
     FOREIGN KEY (`id_cc`)
     REFERENCES `Crud`.`DCompra` (`id_cc`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE
+);
 
 
 -- -----------------------------------------------------
@@ -110,17 +110,17 @@ CREATE TABLE IF NOT EXISTS `Crud`.`MCompra` (
     FOREIGN KEY (`d_com`)
     REFERENCES `Crud`.`DCompra` (`id_cc`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE
+);
 
-INSERT INTO `MUsuario`(`id_usr`, `username`, `password`, `nom_cli`, `appat_cli`, `apmat_cli`, `fecnac_cli`, `dir_cli`, `tel_cli`, `cel_cli`, `dir_entrega_cli`, `nivel`)
+INSERT INTO `MUsuario`(`id_usr`, `username`, `password`, `nivel`)
 VALUES
-    (1, 'User', 'hola', 'Bob', 'Hernández', 'Castillo', '2000-01-01', 'Lago Amatitlán 1', '5555555555', '565555555555', 'Lago Amatitlán 1', 2),
-    (2, 'User2', 'hola', 'Bob', 'Apellido', 'Apellido', '2001-01-01', 'Lago Amatitlán 7', '5555543255', '565555565555', 'Lago Amatitlán 7', 2),
-    (3, 'Willy', 'contrasena', 'Wilberth', 'García', 'Piña', '2003-01-01', 'Lago POO 532', '55543243255', '565655565555', 'Lago Amatitlán 7', 1),
-    (4, 'Puertas', 'contrasena', 'Ismael', 'García', 'Porto', '2003-02-20', 'Océano Pacífico 642', '55843243255', '565655546655', 'Mi casa', 1),
-    (5, 'roberto', '1234', 'robert', 'asd', 'ghgfd', '1903-01-01', 'Lago POO 532', '55543243255', '565655565555', 'Lago Amatitlán 7', 1),
-    (6, 'ismael', '1234', 'Wilberth', 'García', 'Piña', '1993-01-01', 'Lago POO 532', '55543243255', '565655565555', 'Lago Amatitlán 7', 2);
+    (1, 'User', 'hola',  2),
+    (2, 'User2', 'hola', 2),
+    (3, 'Willy', 'contrasena',  1),
+    (4, 'Puertas', 'contrasena', 1),
+    (5, 'roberto', '1234', 1),
+    (6, 'ismael', '1234', 2);
 
 LOCK TABLES `MProducto` WRITE;
 

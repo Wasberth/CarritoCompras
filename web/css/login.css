@@ -147,8 +147,8 @@ form{
 	margin-bottom: 4px;
 }
 
-a{
-	display: block;
+h5, a{
+	display: inline-block;
 	text-align: right;
 	text-decoration: none;
 	color: #999;

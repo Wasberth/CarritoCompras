@@ -30,8 +30,9 @@
         Connection con = null;
         String url = "jdbc:mysql://localhost:3306/";
         String user = "root";
-        String password = "root";
+        String password = "n0m3l0";
         String bd = "Crud";
+        String nombre = "", contra = "";
         
         String driver = "com.mysql.jdbc.Driver";
         try {
@@ -40,11 +41,12 @@
             try {
                 Statement sst = con.createStatement();
                 int id = 2;
-                String nombre = request.getParameter("user");
-                String contra = request.getParameter("password");
-                
-                String sql = "insert into MUsuario (user,password)"
-                        + "values ('"+nombre+"','"+contra+"')";
+                nombre = request.getParameter("user");
+                contra = request.getParameter("password");
+                System.out.println(nombre);
+                String sql = "insert into MUsuario (username, password)"
+                        + " values ('"+nombre+"','"+contra+"')";
+                System.out.println(sql);
                 int val = sst.executeUpdate(sql);
                 con.close();
                 out.append("Registro exitoso");
@@ -60,7 +62,7 @@
                 System.out.println(e.getMessage());
                 System.out.println(e.getStackTrace());
         }
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("index.jsp?btninicar=1&user="+nombre+"&nivel=2&password="+contra);
         %>
     </body>
 </html>

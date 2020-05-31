@@ -18,7 +18,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <img class="wave" src="img/wave.png">
         <div class="container">
             <div class="img">
                 <img src="img/bg.svg">
@@ -27,12 +26,7 @@
                 <form action="index.jsp" method="post">
                     <img src="img/avatar.svg">
                     <h2 class="title">Bienvenido</h2>
-                    User admin=roberto
-                    password admin=1234
-                    User ejemplo = ismael
-                    password ejemplo = 1234
-
-                    <h2><a href="info.html">Lea esto porfi</a></h2>
+                    <h5>Al ingresar a nuestro sitio acepta nuestros <a href="#">términos y condiciones</a></h5>
                     <div class="input-div one">
                         <div class="i">
                             <i class="fas fa-user"></i>
@@ -53,7 +47,6 @@
                     </div>
                     <a href="registrar.jsp">Eres nuevo? Registrate c:</a>
                     <input type="submit" class="btn" value="Login" name="btninicar">
-                </form>
                 <%@page import="modelado.Operaciones"%>
                 <%
 
@@ -78,18 +71,17 @@
                                 break;
 
                             default:
-                                out.append("Tu usuario no existe");
+                                out.append("<h6 class='error'>Tu usuario no existe</h6>");
                                 break;
-                        } //cierra switch
-                    }//cierra if
-                    if (request.getParameter("cerrar") != null) {
-                        session.invalidate();
+                        }
+                    }
+                    if(request.getParameter("log") != null){
+                        out.append("<h6 class='error'>No haz iniciado sesión</h6>");
                     }
                 %>
-
+                </form>
             </div>
         </div>
         <script type="text/javascript" src="js/main.js"></script>
-
     </body>
 </html>

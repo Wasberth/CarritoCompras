@@ -165,7 +165,7 @@ public class Controlador extends HttpServlet {
                 List<Integer> cantids = new ArrayList();
                 double subtotal = 0,
                  total;
-                int venta = new Operaciones().getLastSell();
+                int venta = new Operaciones().getLastSell() + 1;
                 for (carrito listacarrito1 : listacarrito) {
                     prods.add(listacarrito1.getNombres());
                     costs.add(listacarrito1.getPrecioCompra());
@@ -178,7 +178,7 @@ public class Controlador extends HttpServlet {
                 } catch (Ticket.NoSuitableListSize ex) {
                     System.err.println(ex);
                 }
-
+                System.out.println(ticket.getTicketString());
                 break;
             default:
                 System.out.println("default");

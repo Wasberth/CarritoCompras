@@ -124,13 +124,18 @@ public class Ticket {
             String producto = productos.get(i);
             double costo = costos.get(i);
             int cantidad = cantidades.get(i);
-            ticketString = ticketString + producto + " x" + cantidad + " $" + costo +"\n";
+            ticketString = ticketString + producto + " x" + cantidad + " $" + costo + "\n";
         }
 
-        ticketString = ticketString + "=============================\n"
+        ticketString = ticketString + ""
+                + "-----------------------------\n"
+                + "SUBTOTAL $" + subtotal + "\n"
+                + "+ IVA 16%" + "\n"
+                + "TOTAL $"+total + "\n"
+                + "=============================\n"
                 + "VERSIÓN COVID-SHOPv1.0\n"
                 + "MUCHAS GRACIAS POR SU VISITA";
-        
+
         return ticketString;
     }
 

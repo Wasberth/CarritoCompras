@@ -126,7 +126,7 @@ public class Controlador extends HttpServlet {
                 request.setAttribute("contador", listacarrito.size());
                 request.setAttribute("accion", "carrito");
 
-                request.getRequestDispatcher("carrito.jsp").forward(request, response);
+                response.sendRedirect("Controlador?accion=Carrito");
                 break;
 
             case "Delete":

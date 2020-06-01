@@ -16,6 +16,10 @@
         <servlet-name>ControladorImg</servlet-name>
         <servlet-class>controlador.ControladorImg</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CambiarCantidad</servlet-name>
+        <servlet-class>modelado.CambiarCantidad</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>ControladorImg</servlet-name>
         <url-pattern>/ControladorImg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CambiarCantidad</servlet-name>
+        <url-pattern>/CambiarCantidad</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -19,16 +19,16 @@
 
     <body>
         <%
-            try{
+            try {
                 HttpSession sesion = request.getSession();
                 sesion.getAttribute("user");
                 sesion.getAttribute("nivel");
                 String nom_user = sesion.getAttribute("user").toString();
                 System.out.println("algo");
-            }catch(Exception e){
+            } catch (Exception e) {
                 response.sendRedirect("ErrorPage.jsp");
             }
-            
+
 
         %>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -36,54 +36,62 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="indexUser.jsp">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link" href="Controlador?accion=Carrito"><i class="fas fa-cart-plus">(<label style="color: orange">${contador}</label>)</i>Carrito de compras</a>
-                        </li>
+                        <a class="nav-link" href="Controlador?accion=Carrito"><i class="fas fa-cart-plus">(<label style="color: orange">${contador}</label>)</i>Carrito de compras</a>
+                    </li>
                     <li class="nav-item">
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                 </form>
                 <li class="nav-item">
-                    <a class="nav-link" href="Logout.jsp"><i class="fas fa-cart-plus">Cerrar Sesión</a>
+                    <a class="nav-link" href="Logout.jsp"><i class="fas fa-cart-plus">Cerrar Sesión</i></a>
                 </li>
             </div>
         </nav>
-        
-        
+
+        <%                        
+            Object PSS = request.getAttribute("mensaje");
+            System.out.println(PSS);
+            if (PSS != null) {
+        %>
+        <h3><%=PSS.toString()%></h3>
+        <%
+            }
+        %>
+
         <div class="container mt-4">
             <div class="row">
                 <c:forEach var="p" items="${productos}">
                     <div class="col-sm-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <label>${p.getNombres()}</label>
-                            
-                        </div>
-                        <div class="card-body">
-                            <i>$.${p.getPrecio()}</i>
-                            <img src="${p.getFoto()}" width="200" height="180">
-                        </div>
-                        <div class="card-footer test-center">
-                            <label>${p.getDescripcion()}</label>
-                            <div>
-                                <a href="Controlador?accion=AgregarCarrito&id=${p.getId()}" class="btn btn-outline-info">Agregar a carrito</a>
-                                <a href="Controlador?accion=comprar&id=${p.getId()}" class="btn btn-danger">Comprar</a>
+                        <div class="card">
+                            <div class="card-header">
+                                <label>${p.getNombres()}</label>
+
                             </div>
+                            <div class="card-body">
+                                <i>$.${p.getPrecio()}</i>
+                                <img src="${p.getFoto()}" width="200" height="180">
+                            </div>
+                            <div class="card-footer test-center">
+                                <label>${p.getDescripcion()}</label>
+                                <div>
+                                    <a href="Controlador?accion=AgregarCarrito&id=${p.getId()}" class="btn btn-outline-info">Agregar a carrito</a>
+                                    <a href="Controlador?accion=comprar&id=${p.getId()}" class="btn btn-danger">Comprar</a>
+                                </div>
+                            </div>
+
                         </div>
-                        
                     </div>
-                </div>
                 </c:forEach>
-                
+
             </div>
-            
+
         </div>
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

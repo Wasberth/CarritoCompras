@@ -95,6 +95,19 @@ public class Controlador extends HttpServlet {
                     response.sendRedirect("Controlador?accion=home");
                 }
                 break;
+            case "CambiarCantidad":
+                try {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    int can = Integer.parseInt(request.getParameter("cantidad"));
+                    for (carrito listacarrito1 : listacarrito) {
+                        if (listacarrito1.getIdProducto() == id) {
+                            listacarrito1.setCantidad(can);
+                        }
+                    }
+                } catch (Exception e) {
+                    response.sendRedirect("Controlador?accion=home");
+                }
+            //NO AGREGAR BREAK AQUÍ
             case "Carrito":
                 try {
                     totalPagar = 0.0;
@@ -110,7 +123,6 @@ public class Controlador extends HttpServlet {
                     response.sendRedirect("Controlador?accion=home");
                 }
                 break;
-
             case "comprar":
                 try {
                     totalPagar = 0.0;

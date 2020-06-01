@@ -16,6 +16,9 @@
         <title>Carrito Page</title>
     </head>
     <body>
+        <noscript>
+        <META HTTP-EQUIV="Refresh" CONTENT="0;URL=Controlador?accion=home&mensaje=ActivaJavascript">
+        </noscript>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">COVID-19 Shop</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +64,7 @@
                             <th>PRECIO</th>
                             <th>CANT</th>
                             <th>SUBTOTAL</th>
-                            <th>ACCION</th>
+                            <th>ELIMINAR</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,8 +75,18 @@
                                 <td>${car.getPrecioCompra()}</td>
 
                                 <td>
-                                    <input type="hidden" id="id" value="${car.getIdProducto()}">
-                                    <input type="text" disabled id="Cantidad" value="${car.getCantidad()}" class="form-control text-center" min="1">
+                                    <form class="form-inline" action="Controlador">
+                                        <input type="hidden" id="accion" value="CambiarCantidad" name="accion">
+                                        <input type="hidden" id="id" value="${car.getIdProducto()}" name="id">
+                                        <div class="form-row">
+                                            <div class="col-9">
+                                                <input type="number" id="Cantidad" value="${car.getCantidad()}" class="form-control text-center" min="1" name="cantidad">
+                                            </div>
+                                            <div class="col-2">
+                                                <input type="submit" class="form-control text-center btn btn-danger" value="Actualizar">
+                                            </div>
+                                        </div>
+                                    </form>
                                 </td>
                                 <td>${car.getSubTotal()}</td>
                                 <td>

@@ -27,12 +27,13 @@ public class Ticket {
         }
     }
 
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    Date date = new Date();
+    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private static final Date DATE = new Date();
     private final String fecha;
 
     private String cliente;
     private List<String> productos;
+    private List<Integer> ids;
     private List<Double> costos;
     private List<Integer> cantidades;
     private double subtotal;
@@ -40,14 +41,14 @@ public class Ticket {
     private int venta;
 
     public Ticket() {
-        this.fecha = formatter.format(date);
+        this.fecha = FORMATTER.format(DATE);
     }
 
-    public Ticket(String cliente, List<String> productos, List<Double> costos, List<Integer> cantidades, double subtotal, double total, int venta) throws NoSuitableListSize {
+    public Ticket(String cliente, List<String> productos, List<Double> costos, List<Integer> cantidades, double subtotal, double total, int venta, List<Integer> ids) throws NoSuitableListSize {
         if (productos.size() != costos.size() || productos.size() != cantidades.size() || costos.size() != cantidades.size()) {
             throw new NoSuitableListSize();
         }
-        this.fecha = formatter.format(date);
+        this.fecha = FORMATTER.format(DATE);
         this.cliente = cliente;
         this.productos = productos;
         this.costos = costos;
@@ -55,6 +56,7 @@ public class Ticket {
         this.subtotal = subtotal;
         this.total = total;
         this.venta = venta;
+        this.ids = ids;
     }
 
     public String getCliente() {
@@ -107,6 +109,18 @@ public class Ticket {
 
     public int getVenta() {
         return venta;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public List<Integer> getIds() {
+        return ids;
+    }
+
+    public void setIds(List<Integer> ids) {
+        this.ids = ids;
     }
 
     public void setVenta(int venta) {

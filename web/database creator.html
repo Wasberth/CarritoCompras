@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `Crud`.`DProducto` (
   `id_dprod` INT NOT NULL AUTO_INCREMENT,
   `precio_prod` DECIMAL NOT NULL,
   `stock_prod` INT NOT NULL,
-  `img_prod` VARCHAR(10),
+  `img_prod` VARCHAR(45),
   `desc_prod` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`id_dprod`),
   CONSTRAINT `detalle-producto`

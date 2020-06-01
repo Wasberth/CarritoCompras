@@ -13,8 +13,18 @@
         <script src="js/jspdf.min.js" type="text/javascript"></script>
         <script>
             var doc = new jsPDF();
-            doc.text(<%=request.getParameter("ticket")%>, doc.internal.pageSize.width, 50, null, null, 'center');
+            console.log(<%=request.getParameter("ticket")%>);
+            doc.text(20, 20, `<%=request.getAttribute("ticket")%>`);
+
+            doc.setProperties({
+                title: 'Ticket',
+                subject: 'Ticket de compra de COVID-SHOP',
+                author: 'Wilberth e Ismael',
+                keywords: 'generated, javascript, web 2.0, ajax',
+                creator: 'Wilberth e Ismael'
+            });
             doc.save('Ticket.pdf');
+            location.href = "Controlador?accion=HacerCompra";
         </script>
     </head>
     <body>

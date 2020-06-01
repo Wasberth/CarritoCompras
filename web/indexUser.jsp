@@ -24,6 +24,7 @@
                 sesion.getAttribute("user");
                 sesion.getAttribute("nivel");
                 String nom_user = sesion.getAttribute("user").toString();
+                System.out.println("algo");
             }catch(Exception e){
                 response.sendRedirect("ErrorPage.jsp");
             }

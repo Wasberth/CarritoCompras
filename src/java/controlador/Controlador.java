@@ -37,7 +37,6 @@ public class Controlador extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        session.setAttribute("MyAttribute", "test value");
 
         String accion = request.getParameter("accion");
         productos = pdao.listar();
@@ -163,6 +162,7 @@ public class Controlador extends HttpServlet {
                 List<String> prods = new ArrayList();
                 List<Double> costs = new ArrayList();
                 List<Integer> cantids = new ArrayList();
+                List<Integer> ids = new ArrayList();
                 double subtotal = 0,
                  total;
                 int venta = new Operaciones().getLastSell() + 1;
@@ -170,20 +170,29 @@ public class Controlador extends HttpServlet {
                     prods.add(listacarrito1.getNombres());
                     costs.add(listacarrito1.getPrecioCompra());
                     cantids.add(listacarrito1.getCantidad());
+                    ids.add(listacarrito1.getIdProducto());
                     subtotal = subtotal + (listacarrito1.getPrecioCompra() * listacarrito1.getCantidad());
                 }
                 total = subtotal * (1.16);
                 try {
-                    ticket = new Ticket(cliente, prods, costs, cantids, subtotal, total, venta);
+                    ticket = new Ticket(cliente, prods, costs, cantids, subtotal, total, venta, ids);
                 } catch (Ticket.NoSuitableListSize ex) {
                     System.err.println(ex);
                 }
                 System.out.println(ticket.getTicketString());
                 request.setAttribute("ticket", ticket.getTicketString());
                 request.getRequestDispatcher("Ticket.jsp").forward(request, response);
+                System.out.println("guardado");
+                break;
+                
+            case "HacerCompra":
+                System.out.println(ticket);
+                new Operaciones().comprar(ticket);
+                request.getRequestDispatcher("indexUser.jsp").forward(request, response);
                 break;
             default:
                 System.out.println("default");
+                System.out.println(productos);
                 request.setAttribute("productos", productos);
                 request.getRequestDispatcher("indexUser.jsp").forward(request, response);
         }

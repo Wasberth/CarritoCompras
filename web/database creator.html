@@ -126,6 +126,8 @@ CREATE TABLE IF NOT EXISTS `crud`.`ETicket` (
     ON UPDATE CASCADE
 );
 
+ALTER TABLE `ETicket` AUTO_INCREMENT = 1;
+
 INSERT INTO `MUsuario`(`id_usr`, `username`, `password`, `nivel`)
 VALUES
     (1, 'User', 'hola',  2),

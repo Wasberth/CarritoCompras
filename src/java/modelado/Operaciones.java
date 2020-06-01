@@ -7,41 +7,41 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Operaciones {
-    
+
     String driver;
     String url;
     String user;
     String passwordBd;
-    
-    public Operaciones(){
-        driver="com.mysql.jdbc.Driver";
-        url="jdbc:mysql://localhost:3306/Crud";
-        user="root";
-        passwordBd="root";
+
+    public Operaciones() {
+        driver = "com.mysql.jdbc.Driver";
+        url = "jdbc:mysql://localhost:3306/Crud";
+        user = "root";
+        passwordBd = "root";
     }
-    
+
     //Entero por que retorna el nivel de usuario
-    public int loguear(String usuario,String password){
+    public int loguear(String usuario, String password) {
         System.out.println(usuario);
         System.out.println(password);
-            Connection conn;
-            PreparedStatement pst;
-            ResultSet rs;
-            int cont=0;
-            int nivel = 0;
-            String sql = "SELECT `nivel` FROM MUsuario WHERE username='"+usuario+"' and password='"+password+"'";
+        Connection conn;
+        PreparedStatement pst;
+        ResultSet rs;
+        int cont = 0;
+        int nivel = 0;
+        String sql = "SELECT `nivel` FROM MUsuario WHERE username='" + usuario + "' and password='" + password + "'";
         try {
-            
+
             Class.forName(this.driver);
             conn = (Connection) DriverManager.getConnection(
-            this.url,
-            this.user,
-            this.passwordBd
+                    this.url,
+                    this.user,
+                    this.passwordBd
             );
             pst = (PreparedStatement) conn.prepareStatement(sql);
             rs = pst.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 nivel = rs.getInt(1);
                 System.out.println(nivel);
             }
@@ -51,10 +51,39 @@ public class Operaciones {
             e.getMessage();
             e.printStackTrace();
         }
-        
+
         return nivel;
     }
-    
-    
-    
+
+    public int getLastSell() {
+        Connection conn;
+        PreparedStatement pst;
+        ResultSet rs;
+        int lastSell = 0;
+        String sql = "SELECT `id_com` FROM MCompra ORDER BY `id_com` DESC LIMIT 1";
+        try {
+
+            Class.forName(this.driver);
+            conn = (Connection) DriverManager.getConnection(
+                    this.url,
+                    this.user,
+                    this.passwordBd
+            );
+            pst = (PreparedStatement) conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                lastSell = rs.getInt(1);
+                System.out.println(lastSell);
+            }
+            conn.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error");
+            e.getMessage();
+            e.printStackTrace();
+        }
+
+        return lastSell;
+    }
+
 }

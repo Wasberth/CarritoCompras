@@ -4,13 +4,18 @@ import config.Fecha;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import modelado.Operaciones;
 import modelo.Contacto;
 import modelo.Producto;
 import modelo.ProductoDAO;
+import modelo.Ticket;
 import modelo.carrito;
 
 /**
@@ -23,12 +28,16 @@ public class Controlador extends HttpServlet {
     Producto p = new Producto();
     List<Producto> productos = new ArrayList<>();
     List<carrito> listacarrito = new ArrayList<>();
+    Ticket ticket = new Ticket();
     int item;
     double totalPagar = 0.0;
     int cantidad = 1;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        session.setAttribute("MyAttribute", "test value");
 
         String accion = request.getParameter("accion");
         productos = pdao.listar();
@@ -150,6 +159,26 @@ public class Controlador extends HttpServlet {
                 break;
 
             case "generarCompra":
+                String cliente = session.getAttribute("user").toString();
+                List<String> prods = new ArrayList();
+                List<Double> costs = new ArrayList();
+                List<Integer> cantids = new ArrayList();
+                double subtotal = 0,
+                 total;
+                int venta = new Operaciones().getLastSell();
+                for (carrito listacarrito1 : listacarrito) {
+                    prods.add(listacarrito1.getNombres());
+                    costs.add(listacarrito1.getPrecioCompra());
+                    cantids.add(listacarrito1.getCantidad());
+                    subtotal = subtotal + (listacarrito1.getPrecioCompra() * listacarrito1.getCantidad());
+                }
+                total = subtotal * (1.16);
+                try {
+                    ticket = new Ticket(cliente, prods, costs, cantids, subtotal, total, venta);
+                } catch (Ticket.NoSuitableListSize ex) {
+                    System.err.println(ex);
+                }
+
                 break;
             default:
                 System.out.println("default");

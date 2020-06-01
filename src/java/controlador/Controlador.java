@@ -1,18 +1,14 @@
 package controlador;
 
-import config.Fecha;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelado.Operaciones;
-import modelo.Contacto;
 import modelo.Producto;
 import modelo.ProductoDAO;
 import modelo.Ticket;
@@ -184,12 +180,28 @@ public class Controlador extends HttpServlet {
                 request.getRequestDispatcher("Ticket.jsp").forward(request, response);
                 System.out.println("guardado");
                 break;
-                
+
             case "HacerCompra":
                 System.out.println(ticket);
-                new Operaciones().comprar(ticket);
+                String resultado = new Operaciones().comprar(ticket);
+                if (resultado.equals("Success")) {
+                    listacarrito.clear();
+                    response.sendRedirect("Controlador?accion=home");
+                } else {
+                    List<carrito> nuevalistacarrito = new ArrayList<>();
+                    List<Integer> noStock = Operaciones.getNOSTOCK();
+                    System.out.println(noStock);
+                    listacarrito.stream().filter((listacarrito1) -> (noStock.contains(listacarrito1.getIdProducto()))).forEachOrdered((listacarrito1) -> {
+                        System.out.println(listacarrito1.getIdProducto());
+                        nuevalistacarrito.add(listacarrito1);
+                    });
+                    System.out.println(listacarrito);
+                    System.out.println(nuevalistacarrito);
+                    listacarrito = nuevalistacarrito;
+                    request.setAttribute("ProductosSinStock", resultado);
+                    request.getRequestDispatcher("Controlador?accion=Carrito").forward(request, response);
+                }
 //                                request.getRequestDispatcher("indexUser.jsp").forward(request, response);
-                response.sendRedirect("Controlador?accion=home");
                 break;
             default:
                 System.out.println("default");

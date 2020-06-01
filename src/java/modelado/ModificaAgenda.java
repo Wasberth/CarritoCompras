@@ -5,12 +5,6 @@ import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import modelo.ConsultaAgenda;
-import modelo.Contacto;
-import modelo.Producto;
 import modelo.ProductoDAO;
 
 public class ModificaAgenda {
@@ -20,7 +14,7 @@ public class ModificaAgenda {
         ResultSet rs;
         String url = "jdbc:mysql://localhost:3306/";
         String user = "root";
-        String password = "root";
+        String password = "n0m3l0";
         String bd = "Crud";
         String nom_mprod = "", descripcion = "";
         double precio;

@@ -41,14 +41,21 @@
             </div>
         </nav>
 
-        <div class="container mt-4">
+        <div class="container mt-4" style="margin-bottom: 2rem">
             <h3>Carrito</h3>
             <br>
-            <div class="col-sm-8">
+            <div class="col-sm-12">
+                <%
+                    Object PSS = request.getAttribute("ProductosSinStock");
+                    if (PSS != null) {
+                %>
+                <h3><%=PSS.toString()%></h3>
+                <%
+                    }
+                %>
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>ITEM</th>
                             <th>NOMBRES</th>
                             <th>DESCRIPCION</th>
                             <th>PRECIO</th>
@@ -60,7 +67,6 @@
                     <tbody>
                         <c:forEach var="car" items="${carrito}">
                             <tr>
-                                <td>${car.getItem()}</td>
                                 <td>${car.getNombres()}</td>
                                 <td>${car.getDescripcion()}</td>
                                 <td>${car.getPrecioCompra()}</td>
@@ -93,7 +99,7 @@
                         <input type="text" value="${totalPagar}" readonly="" class="form-control">
                     </div>
                     <div class="card-footer">
-<!--                        <a href="$" class="btn btn-info btn-block">Realizar Pago</a>-->
+                        <!--                        <a href="$" class="btn btn-info btn-block">Realizar Pago</a>-->
                         <a href="Controlador?accion=generarCompra" class="btn btn-danger">Generar Compra</a>
                     </div>
                 </div>

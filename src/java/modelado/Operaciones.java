@@ -5,11 +5,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import modelo.Ticket;
 
 public class Operaciones {
 
     private static int sell;
+    private static final List<Integer> NOSTOCK = new ArrayList<Integer>();
     String driver;
     String url;
     String user;
@@ -19,7 +22,15 @@ public class Operaciones {
         driver = "com.mysql.jdbc.Driver";
         url = "jdbc:mysql://localhost:3306/Crud";
         user = "root";
-        passwordBd = "root";
+        passwordBd = "n0m3l0";
+    }
+
+    public static List<Integer> getNOSTOCK() {
+        return NOSTOCK;
+    }
+    
+    public static void clearNOSTOCK(){
+        NOSTOCK.clear();
     }
 
     //Entero por que retorna el nivel de usuario
@@ -88,21 +99,65 @@ public class Operaciones {
         return lastSell;
     }
 
-    public void comprar(Ticket ticket) {
+    public String comprar(Ticket ticket) {
+        String resultado = "";
+        boolean res = true;
         sell = new Operaciones().getLastSell() + 1;
-        new Operaciones().guardarDetallesCompra(ticket.getSubtotal(), ticket.getTotal(), ticket.getFecha());
-        new Operaciones().registrarCompra();
+
+        res = res && new Operaciones().guardarDetallesCompra(ticket.getSubtotal(), ticket.getTotal(), ticket.getFecha());
+        res = res && new Operaciones().registrarCompra();
         for (int i = 0; i < ticket.getProductos().size(); i++) {
-            System.out.println("id");
-            System.out.println(ticket.getIds().get(i));
-            System.out.println("cantidad");
-            System.out.println(ticket.getCantidades().get(i));
-            new Operaciones().guardarTicket(ticket.getIds().get(i), ticket.getCantidades().get(i));
+            if (new Operaciones().checkStock(ticket.getIds().get(i), ticket.getCantidades().get(i))) {
+                res = res && new Operaciones().actualizarStock(ticket.getIds().get(i), ticket.getCantidades().get(i));
+                res = res && new Operaciones().guardarTicket(ticket.getIds().get(i), ticket.getCantidades().get(i));
+            } else {
+                NOSTOCK.add(ticket.getIds().get(i));
+                resultado = resultado + "No hay stock suficiente de " + ticket.getProductos().get(i) + ". ";
+            }
         }
         sell = -1;
+        if (!res) {
+            resultado = "Un error ha ocurrido. " + resultado;
+        }
+        if ("".equals(resultado)) {
+            resultado = "Success";
+        }
+        System.out.println(resultado);
+        return resultado;
     }
 
-    private void registrarCompra() {
+    public boolean checkStock(int idprod, int cantidad) {
+        Connection conn;
+        PreparedStatement pst;
+        ResultSet rs;
+        int stock = 0;
+        String sql = "SELECT `stock_prod` FROM DProducto WHERE id_dprod = " + idprod;
+        try {
+
+            Class.forName(this.driver);
+            conn = (Connection) DriverManager.getConnection(
+                    this.url,
+                    this.user,
+                    this.passwordBd
+            );
+            pst = (PreparedStatement) conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                stock = rs.getInt(1);
+            }
+            conn.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error");
+            e.getMessage();
+            e.printStackTrace();
+            return false;
+        }
+
+        return stock >= cantidad;
+    }
+
+    private boolean registrarCompra() {
         Connection conn;
         PreparedStatement pst;
         int rs;
@@ -120,10 +175,12 @@ public class Operaciones {
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(sql);
             System.err.println(e);
+            return false;
         }
+        return true;
     }
 
-    private void guardarDetallesCompra(double subtotal, double total, String fecha) {
+    private boolean guardarDetallesCompra(double subtotal, double total, String fecha) {
         Connection conn;
         PreparedStatement pst;
         int rs;
@@ -142,10 +199,36 @@ public class Operaciones {
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(sql);
             System.err.println(e);
+            return false;
         }
+        return true;
     }
 
-    private void guardarTicket(int idprod, int cantidad) {
+    private boolean actualizarStock(int id, int cantidad) {
+        Connection conn;
+        PreparedStatement pst;
+        int rs;
+        String sql = "UPDATE DProducto SET stock_prod = stock_prod - " + cantidad + " WHERE id_dprod =" + id;
+        try {
+
+            Class.forName(this.driver);
+            conn = (Connection) DriverManager.getConnection(
+                    this.url,
+                    this.user,
+                    this.passwordBd
+            );
+            pst = (PreparedStatement) conn.prepareStatement(sql);
+            rs = pst.executeUpdate();
+            conn.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(sql);
+            System.err.println(e);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean guardarTicket(int idprod, int cantidad) {
         Connection conn;
         PreparedStatement pst;
         int rs;
@@ -164,7 +247,9 @@ public class Operaciones {
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(sql);
             System.err.println(e);
+            return false;
         }
+        return true;
     }
 
 }

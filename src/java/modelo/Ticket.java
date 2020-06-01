@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import modelado.Operaciones;
 
 /**
  *
@@ -136,16 +137,19 @@ public class Ticket {
 
         for (int i = 0; i < productos.size(); i++) {
             String producto = productos.get(i);
+            int id = ids.get(i);
             double costo = costos.get(i);
             int cantidad = cantidades.get(i);
-            ticketString = ticketString + producto + " x" + cantidad + " $" + costo + "\n";
+            if (new Operaciones().checkStock(id, cantidad)) {
+                ticketString = ticketString + producto + " x" + cantidad + " $" + costo + "\n";
+            }
         }
 
         ticketString = ticketString + ""
                 + "-----------------------------\n"
                 + "SUBTOTAL $" + subtotal + "\n"
                 + "+ IVA 16%" + "\n"
-                + "TOTAL $"+total + "\n"
+                + "TOTAL $" + total + "\n"
                 + "=============================\n"
                 + "VERSIÓN COVID-SHOPv1.0\n"
                 + "MUCHAS GRACIAS POR SU VISITA";

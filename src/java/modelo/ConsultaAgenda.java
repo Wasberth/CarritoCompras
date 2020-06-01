@@ -22,7 +22,7 @@ public class ConsultaAgenda
       {
          Class.forName("org.gjt.mm.mysql.Driver");
          Connection conexion = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/crud", "root", "root");
+            "jdbc:mysql://localhost:3306/crud", "root", "n0m3l0");
          Statement st = conexion.createStatement();
          ResultSet rs = st.executeQuery("select * from musuario" );
          while (rs.next())
@@ -49,7 +49,7 @@ public class ConsultaAgenda
       {
          Class.forName("org.gjt.mm.mysql.Driver");
          Connection conexion = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/crud", "root", "root");
+            "jdbc:mysql://localhost:3306/crud", "root", "n0m3l0");
          Statement st = conexion.createStatement();
          Statement st2 = conexion.createStatement();
          ResultSet rs = st.executeQuery("select * from mproducto" );

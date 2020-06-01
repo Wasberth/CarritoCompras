@@ -1,34 +1,127 @@
 <%-- 
-    Document   : ModificarArticuloAdmin
-    Created on : 31/05/2020, 12:44:25 AM
+    Document   : indexAdmin
+    Created on : 21/04/2020, 09:56:09 PM
     Author     : PORTO
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import = "modelo.Contacto"%> 
+<%@ page import = "modelo.ConsultaAgenda"%> 
+<%@ page import = "java.util.LinkedList"%> 
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/ali.css">
+        <link href="css/estilos.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Formulario Modificar</title>
+        <title>Constular perfiles Admin Page</title>
     </head>
     <body>
-        <h1>Ingrese el nombre del articulo a modificar</h1>
-        
-        <form action="Modificar.jsp" method="post" name="form-modificar">
-            nombre: <input type="text" name="nombre_producto" required="true"/><br/>
-                     
-        <h1>Ingrese los datos a Modificar</h1>
-             
-        Stock nuevo: <input type="number" name="stock_prod" min="1" max="999"/><br/><br/>
-        Descripcion nueva: <input type="text" name="desc_prod"/><br/><br/>
-        Precio nuevo: <input type="number" name="precio_prod" min="1" max="100000"/><br/><br/>
-         <input type="submit" value="Modificar"/>
-         
-        </form>
-        
-        
-        <br><br>
-                <a href="indexAdmin.jsp">Volver a Menú</a>
-        
-    </body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">COVID-19 Shop Administration</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="indexAdmin.jsp">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                </form>
+                <li class="nav-item">
+                    <a class="nav-link" href="Logout.jsp"><i class="fas fa-cart-plus">Cerrar Sesión</a>
+                </li>
+            </div>
+        </nav>
+
+        <div class="col-sm-8" style="align-content: center;">
+            <table class="table table-hover" >
+                <tr>
+                    <td width="100%">
+                        <form mehod="post" action="Modificar.jsp">
+                            <h2>
+                                Ingresa el nombre del producto a modificar y después los nuevos atributos
+                            </h2>
+                            <table  width="100%">
+                                <tr>
+                                    <td width="50%">
+                                        <b>
+                                            Nombre
+                                        </b>
+                                    </td>
+                                    <td width="50%">
+                                        <input type="text" name="nombre_producto" required>
+                                    </td> 
+                                </tr>
+
+                                <tr>
+                                    <td width="50%">
+                                        <b>
+                                            Stock nuevo:
+                                        </b>
+                                    </td>
+                                    <td >
+                                        <input type="text" name="stock_prod" min="1" max="999" required>
+                                    </td> 
+                                </tr>
+
+                                <tr>
+                                    <td width="50%">
+                                        <b>
+                                            Descripcion nueva: 
+                                        </b>
+                                    </td>
+                                    <td width="50%">
+                                        <input type="text" name="desc_prod" required>
+                                    </td> 
+                                </tr>
+
+                                <tr>
+                                    <td width="50%">
+                                        <b>
+                                            Precio nuevo:
+                                        </b>
+                                    </td>
+                                    <td width="50%">
+                                        <input type="text" name="precio_prod" min="1" max="100000" required>
+                                    </td> 
+                                </tr>
+                                <td width="50%">
+                                    <input class="btn btn-outline-success" type="submit" value="Modificar item">
+                                </td>
+                                <td width="50%">
+                                    <input class="btn btn-outline-danger" type="reset" value="Reinicar">
+                                </td>
+                                <td width="50%">
+                                    <input class="btn btn-outline-success" href="ConsultaArticulosAdmin.jsp" value="Consultar Productos">
+                                </td>
+
+
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="js/funciones.js" type="text/javascript"></script>
+</body>
 </html>

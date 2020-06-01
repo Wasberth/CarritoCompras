@@ -88,14 +88,20 @@ public class ProductoDAO {
             con = cn.getConnection();
             pst2 = con.prepareStatement(sql2);
             rs2 = pst2.executeQuery();
+            
             while (rs2.next()) {
                 Producto p = new Producto();
                 p.setNombres(rs2.getString("nom_mprod"));
+                String nombreTabla = rs2.getString("nom_mprod");
+                System.out.println("Articulo de la tabla: "+nombreTabla);
                 productos.add(p);
-                for (int i = 0; i < productos.size(); i++) {
-                    if (productos.get(i).getNombres() == nom_mprod) {
+                
+            }
+            for (int i = 0; i < productos.size(); i++) {
+                    if (productos.get(i).getNombres().equalsIgnoreCase(nom_mprod)) {
                         System.out.println("Existe 1");
                         verificador = true;
+                        break;
                     } else {
                         System.out.println("No existe 1");
                         verificador = false;
@@ -106,10 +112,9 @@ public class ProductoDAO {
                 } else {
                     return false;
                 }
-            }
-            con.close();
-            pst2.close();
-            rs2.close();
+//            con.close();
+//            pst2.close();
+//            rs2.close();
         } catch (SQLException e) {
             System.out.println("ERROR EN SQL :C");
             System.out.println(e.getMessage());
@@ -117,32 +122,8 @@ public class ProductoDAO {
 
         }
 
-        return true;
     }
 
-    public void listarImg(int id, HttpServletResponse response) {
-        /*String sql = "SELECT * FROM DProducto WHERE idProducto="+id;
-        InputStream inputStream = null;
-        OutputStream outputStream;
-        BufferedInputStream bufferedInputStream = null;
-        BufferedOutputStream bufferedOutputStream = null;
-        try {
-            outputStream = response.getOutputStream();
-            con = cn.getConnection();
-            pst = con.prepareStatement(sql);
-            rs = pst.executeQuery();
-            if(rs.next()){
-                inputStream = rs.getBinaryStream("img_prod");
-            }
-            bufferedInputStream = new BufferedInputStream(inputStream);
-            bufferedOutputStream = new BufferedOutputStream(outputStream);
-            int i = 0;
-            while((i = bufferedInputStream.read())!=-1){
-                bufferedOutputStream.write(i);
-            }
-        } catch (IOException | SQLException e) {
-        }*/
-
-    }
+    
 
 }

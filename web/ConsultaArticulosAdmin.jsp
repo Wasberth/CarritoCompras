@@ -5,15 +5,10 @@
 --%>
 
 
-<%@page import="java.sql.SQLException"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="modelado.ModificaAgenda"%>
+<%@page import="modelo.ConsultaAgenda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import = "modelo.Contacto"%> 
-<%@ page import = "modelo.ConsultaAgenda"%> 
+<%@ page import = "modelo.Producto"%> 
+<%@ page import = "modelo.ProductoDAO"%> 
 <%@ page import = "java.util.LinkedList"%> 
 <!DOCTYPE html>
 <html>
@@ -46,53 +41,41 @@
                 </li>
             </div>
         </nav>
-        <%
-
-            
-        //CREANDO LA CONEXION CON BD
-        Connection con = null;
-        String url = "jdbc:mysql://localhost:3306/";
-        String user = "root";
-        String password = "root";
-        String bd = "Crud";
         
-        String driver = "com.mysql.jdbc.Driver";
-        try {
-            Class.forName(driver);
-            con = DriverManager.getConnection(url+bd, user, password);
-            try {
-                Statement sst = con.createStatement();
-                Statement sst2 = con.createStatement();
-                String nombre = request.getParameter("nombre");
-                String descripcion = request.getParameter("descr");
-                String urlImagen = request.getParameter("img_prod");
-                double precio = Double.parseDouble(request.getParameter("precio"));
-                int stock = Integer.parseInt(request.getParameter("stock"));
-                
-                String sql = "insert into MProducto (nom_mprod) "
-                        + "values ('"+nombre+"')";
-                int val = sst.executeUpdate(sql);
-                String sql2 = "insert into DProducto (desc_prod,precio_prod,stock_prod,img_prod) "
-                        + "values ('"+descripcion+"',"+precio+","+stock+",'"+urlImagen+"')";
-                int k = sst2.executeUpdate(sql2);
-                con.close();
-            } catch (SQLException e) {
-                System.out.println("No se conecto a la tabla");
-                System.out.println(e.getMessage());
-                System.out.println(e.getSQLState());
-                System.out.println(e.getStackTrace());
-            }
-                
-        } catch (Exception e) {
-                System.out.println("No se conecto a la base");
-                System.out.println(e.getMessage());
-                System.out.println(e.getStackTrace());
-        }
-        %>
-        <br>
-        <a class="btn btn-outline-success" href="indexAdmin.jsp">Volver a Menú</a><br>
-        <a class="btn btn-outline-success" href="Agregar.jsp.jsp">Agregar otro artículo</a>
+        <div class="col-sm-8" style="align-content: center;">
+                <table class="table table-hover" >
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                              <%
+                LinkedList<Producto> lista = ConsultaAgenda.getProductos();
+                for (int i = 0; i < lista.size(); i++) {
+                    out.println("<tr>");
+                    out.append("<td>" + lista.get(i).getId() + "</td>");
+                    out.println("<td>" + lista.get(i).getNombres()+ "</td>");
+                    out.println("<td>" + lista.get(i).getDescripcion()+ "</td>");
+                    out.println("<td>" + lista.get(i).getPrecio()+ "</td>");
+                    out.println("<td>" + lista.get(i).getStock()+ "</td>");
+                    out.println("</tr>");
+                }
+            %>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
 
+       
+            </div>
+        </div>
 
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -102,3 +85,4 @@
     <script src="js/funciones.js" type="text/javascript"></script>
 </body>
 </html>
+

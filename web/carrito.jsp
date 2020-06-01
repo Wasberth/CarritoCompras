@@ -78,14 +78,12 @@
                                     <form class="form-inline" action="Controlador">
                                         <input type="hidden" id="accion" value="CambiarCantidad" name="accion">
                                         <input type="hidden" id="id" value="${car.getIdProducto()}" name="id">
-                                        <div class="form-row">
                                             <div class="col-9">
                                                 <input type="number" id="Cantidad" value="${car.getCantidad()}" class="form-control text-center" min="1" name="cantidad">
                                             </div>
                                             <div class="col-2">
                                                 <input type="submit" class="form-control text-center btn btn-danger" value="Actualizar">
                                             </div>
-                                        </div>
                                     </form>
                                 </td>
                                 <td>${car.getSubTotal()}</td>
@@ -105,7 +103,7 @@
                     </div>
                     <div class="card-body">
                         <label>Subtotal:</label>
-                        <input type="text" value="$.${totalPagar}0"eadonly="" class="form-control">
+                        <input type="text" value="$.${totalPagar}" readonly="" class="form-control">
                         <label>Descuento:</label>
                         <input type="text" value="$0.00" readonly="" class="form-control">
                         <label>Total:</label>

@@ -140,11 +140,11 @@ public class Controlador extends HttpServlet {
 //                    for (int i = 0; i < listacarrito.size(); i++) {
 //                        totalPagar = totalPagar + listacarrito.get(i).getSubTotal();
 //                    }
-//                    request.setAttribute("totalPagar", totalPagar);
-//                    request.setAttribute("carrito", listacarrito);
-//                    request.setAttribute("contador", listacarrito.size());
-//                    request.setAttribute("accion", "carrito");
                     agregarCarrito(idp, car);
+                    request.setAttribute("totalPagar", totalPagar);
+                    request.setAttribute("carrito", listacarrito);
+                    request.setAttribute("contador", listacarrito.size());
+                    request.setAttribute("accion", "carrito");
                     response.sendRedirect("Controlador?accion=Carrito");
                 } catch (Exception e) {
                     response.sendRedirect("Controlador?accion=home");
@@ -250,7 +250,9 @@ public class Controlador extends HttpServlet {
     }
 
     private void agregarCarrito(int idp, carrito car) {
+        System.out.println("agregar carrito");
         if (listacarrito.size() < 0) {
+            System.out.println("true1");
             item = item + 1;
             car = new carrito();
             car.setItem(item);
@@ -263,6 +265,7 @@ public class Controlador extends HttpServlet {
 
             listacarrito.add(car);
         } else {
+            System.out.println("false1");
             boolean repetido = false;
             int repeticion = 0;
             for (int i = 0; i < listacarrito.size(); i++) {
@@ -274,8 +277,10 @@ public class Controlador extends HttpServlet {
                 }
             }
             if (repetido) {
+                System.out.println("true 2");
                 listacarrito.get(repeticion).setCantidad(listacarrito.get(repeticion).getCantidad() + cantidad);
             } else {
+                System.out.println("false2");
                 item = item + 1;
                 car = new carrito();
                 car.setItem(item);
@@ -285,6 +290,7 @@ public class Controlador extends HttpServlet {
                 car.setPrecioCompra(p.getPrecio());
                 car.setCantidad(cantidad);
                 car.setSubTotal(cantidad * p.getPrecio());
+                listacarrito.add(car);
             }
         }
     }

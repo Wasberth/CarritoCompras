@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/david/Desktop/CarritoCompras-master/CarritoCompras-master/web/DeleteArticuloAdmin.jsp</file>
             <file>file:/C:/Users/david/Desktop/CarritoCompras-master/CarritoCompras-master/web/Delete.jsp</file>
-            <file>file:/C:/Users/david/Desktop/CarritoCompras-master/CarritoCompras-master/web/Agregar.jsp</file>
             <file>file:/C:/Users/david/Desktop/CarritoCompras-master/CarritoCompras-master/src/java/modelado/ModificaAgenda.java</file>
-            <file>file:/C:/Users/david/Desktop/CarritoCompras-master/CarritoCompras-master/web/GuardarItem.jsp</file>
+            <file>file:/C:/Users/david/Desktop/CarritoCompras-master/CarritoCompras-master/src/java/controlador/Controlador.java</file>
+            <file>file:/C:/Users/david/Desktop/CarritoCompras-master/CarritoCompras-master/web/CRUDArticulos.jsp</file>
+            <file>file:/C:/Users/david/Desktop/CarritoCompras-master/CarritoCompras-master/web/Modificar.jsp</file>
+            <file>file:/C:/Users/david/Desktop/CarritoCompras-master/CarritoCompras-master/web/indexAdmin.jsp</file>
         </group>
     </open-files>
 </project-private>

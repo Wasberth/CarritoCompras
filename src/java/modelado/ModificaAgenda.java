@@ -70,7 +70,7 @@ public class ModificaAgenda {
         ResultSet rs;
         String url = "jdbc:mysql://localhost:3306/";
         String user = "root";
-        String password = "root";
+        String password = "n0m3l0";
         String bd = "Crud";
         String nom_mprod = "", descripcion = "";
         double precio;

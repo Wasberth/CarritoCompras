@@ -51,7 +51,6 @@
             ModificaAgenda objmodif = new ModificaAgenda();
             if (objmodif.eliminarArticulo(nombre) == true) {
                 out.println("Articulo eliminado correctamente");
-
             } else {
                 out.println("Hubo un error en la eliminacion del artículo y la razón principal es: \n");
                 out.println("1. No existe el articulo\n");

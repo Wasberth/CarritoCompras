@@ -51,6 +51,7 @@
             descripcion=request.getParameter("desc_prod");
             precio=Double.parseDouble(request.getParameter("precio_prod"));
             stock = Integer.parseInt(request.getParameter("stock_prod"));
+            
             System.out.println("Articulos recibidos en modificar.jsp \n"+nombre+"\n"+descripcion+"\n"+precio+"\n"+stock);
             ModificaAgenda objmodif=new ModificaAgenda();
             if (objmodif.modificarArticulo(nombre,descripcion,precio,stock)==true){

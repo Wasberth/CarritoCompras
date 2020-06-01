@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <script src=”dist/jspdf.min.js”></script>
+        <script src="js/jspdf.min.js" type="text/javascript"></script>
         <script>
             var doc = new jsPDF();
             doc.text(<%=request.getParameter("ticket")%>, doc.internal.pageSize.width, 50, null, null, 'center');

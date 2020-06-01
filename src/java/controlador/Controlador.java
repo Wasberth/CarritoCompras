@@ -179,6 +179,8 @@ public class Controlador extends HttpServlet {
                     System.err.println(ex);
                 }
                 System.out.println(ticket.getTicketString());
+                request.setAttribute("ticket", ticket.getTicketString());
+                request.getRequestDispatcher("Ticket.jsp").forward(request, response);
                 break;
             default:
                 System.out.println("default");

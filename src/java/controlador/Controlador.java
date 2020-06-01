@@ -188,7 +188,8 @@ public class Controlador extends HttpServlet {
             case "HacerCompra":
                 System.out.println(ticket);
                 new Operaciones().comprar(ticket);
-                request.getRequestDispatcher("indexUser.jsp").forward(request, response);
+//                                request.getRequestDispatcher("indexUser.jsp").forward(request, response);
+                response.sendRedirect("Controlador?accion=home");
                 break;
             default:
                 System.out.println("default");

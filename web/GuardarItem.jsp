@@ -65,7 +65,7 @@
                 Statement sst2 = con.createStatement();
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descr");
-                String urlImagen = request.getParameter("img_prod");
+                String urlImagen = request.getParameter("img_prod")+".jpg";
                 double precio = Double.parseDouble(request.getParameter("precio"));
                 int stock = Integer.parseInt(request.getParameter("stock"));
                 

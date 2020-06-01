@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `Crud`.`DProducto` (
   `id_dprod` INT NOT NULL AUTO_INCREMENT,
   `precio_prod` DECIMAL NOT NULL,
   `stock_prod` INT NOT NULL,
-  `img_prod` LONGBLOB,
+  `img_prod` VARCHAR(10),
   `desc_prod` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`id_dprod`),
   CONSTRAINT `detalle-producto`
@@ -140,17 +140,52 @@ VALUES
 LOCK TABLES `MProducto` WRITE;
 
 INSERT INTO `MProducto` (`id_mprod`, `nom_mprod`)
-VALUES (1, 'Cubrebocas'), (2, 'Bata'), (3, 'Gel'), (4, 'Pluma');
+VALUES (1, 'Cubrebocas de tela'), 
+       (2, 'Cubrebocas quirúrgico'), 
+       (3, 'Cubrebocas industrial'), 
+       (4, 'Gel Antibacterial'), 
+       (5, 'Careta Ajustable'), 
+       (6, 'Guantes quirúrgicos (Latex)'), 
+       (7, 'Guantes quirúrgicos (Nitrilo)'), 
+       (8, 'Fundas desechables para asiento de coche'), 
+       (9, 'Desinfectante de superficies'), 
+       (10, 'Jabón antibacterial'), 
+       (11, 'Tapete sanitizante'), 
+       (12, 'Toallitas húmedas'), 
+       (13, 'Cloro'), 
+       (14, 'Protector de acrílico para mostrador'), 
+       (15, 'Ventilador alto'), 
+       (16, 'Ventilador de piso'), 
+       (17, 'Kit para limpieza de pantallas'), 
+       (18, 'Kit de limpieza ultramax'), 
+       (19, 'Cartel distancia'), 
+       (20, 'Esterilizador rayos UV');
 
 UNLOCK TABLES;
 
 LOCK TABLES `DProducto` WRITE;
 
 INSERT INTO `DProducto` (`id_dprod`, `img_prod`, `desc_prod`, `precio_prod`, `stock_prod`)
-VALUES (1,NULL,'Descripcion de cubrebocas',50.25,180),
-       (2,NULL,'Hecha 100% de algodon, lavable.',250,80),
-       (3,NULL,'Desinfecta 100%',80,100),
-       (4,NULL,'tinta negra',10,500);
+VALUES ( 1,'https://imgur.com/IULCjf6', 'Cubrebocas de tela lavable',                            4,2650),
+       ( 2,'https://imgur.com/flLi3cw', 'Cubrebocas quirúrgico',                                 3,1952),
+       ( 3,'https://imgur.com/NAU1zHb', 'Cubrebocas industrial, bloquea olores',                 15,975),
+       ( 4,'https://imgur.com/E2PGRuu', 'Gel antibacterial 1L, mata el 99% de las bacterias',    25,63),
+       ( 5,'https://imgur.com/fmA9SAA', 'Careta de acetato ajustable y reusable',                30,59),
+       ( 6,'https://imgur.com/RFllatv', 'Guantes quirúrgicos de latex, para uso clínico',        3,124),
+       ( 7,'https://imgur.com/fI6DZpe', 'Guantes quirúrgicos de nitrilo, para uso clínico',      7,140),
+       ( 8,'https://imgur.com/OWavPhq', 'Fundas de plástico para proteger los asientos',         60,600),
+       ( 9,'https://imgur.com/8R1mW8B', 'Desinfectante base en alcohol para superficies',        29.99,598),
+       (10,'https://imgur.com/2PSx6om', 'Mata el 99% de las bacterias y gérmenes',               14.50,1984),
+       (11,'https://imgur.com/NHkRfKQ', 'Tapete para limpiar suelas de los zapatos',             99.99,70),
+       (12,'https://imgur.com/FVcoHyU', 'Toallitas húmedas para la limpieza de las manos',       74.50,150),
+       (13,'https://imgur.com/8E8SYl3', '3L de Cloro al 70%',                                    79.99,30),
+       (14,'https://imgur.com/MVkFUEx', 'Lámina de acrílico 111.8cm x 81.3cm',                   549.50,20),
+       (15,'https://imgur.com/Srn69Pg', 'Mantiene un flujo continuo de aire a 3 potencias',      399.99,78),
+       (16,'https://imgur.com/yh3z3mg', 'Ventilador industrial',                                 899.99,95),
+       (17,'https://imgur.com/hk3pn65', 'Mantiene las pantallas digitales limpias, sin rayones', 20,800),
+       (18,'https://imgur.com/Uaw0DaR', 'Contiene todos los elementos para una casa libre de gérmenes',299.99,100),
+       (19,'https://imgur.com/2q7l7XF', 'Cartel 80cm de sana distancia',119.99,100),
+       (20,'https://imgur.com/5UkdPNM', 'Mata todos los gérmenes con rayos ultravioleta. No mantener al alcance de los niños',1499.99,5);
 UNLOCK TABLES;
 
 

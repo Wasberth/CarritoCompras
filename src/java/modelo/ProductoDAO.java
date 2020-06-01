@@ -35,7 +35,7 @@ public class ProductoDAO {
             while (rs.next() && rs2.next()) {
                 p.setId(rs.getInt(1));
                 p.setNombres(rs.getString("nom_mprod"));
-                p.setFoto(rs2.getBinaryStream("img_prod"));
+                p.setFoto(rs2.getString("img_prod"));
                 p.setDescripcion(rs2.getString("desc_prod"));
                 p.setPrecio(rs2.getDouble("precio_prod"));
                 p.setStock(rs2.getInt("stock_prod"));
@@ -62,7 +62,7 @@ public class ProductoDAO {
                 Producto p = new Producto();
                 p.setId(rs.getInt(1));
                 p.setNombres(rs2.getString("nom_mprod"));
-                p.setFoto(rs.getBinaryStream("img_prod"));
+                p.setFoto(rs.getString("img_prod"));
                 p.setDescripcion(rs.getString("desc_prod"));
                 p.setPrecio(rs.getDouble("precio_prod"));
                 p.setStock(rs.getInt("stock_prod"));

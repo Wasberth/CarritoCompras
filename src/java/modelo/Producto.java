@@ -1,7 +1,5 @@
 package modelo;
 
-import java.io.InputStream;
-
 /**
  *
  * @author PORTO
@@ -10,7 +8,7 @@ public class Producto {
     
     int id;
     String nombres;
-    InputStream foto;
+    String foto;
     String descripcion;
     double precio;
     int stock;
@@ -19,7 +17,7 @@ public class Producto {
         
     }
 
-    public Producto(int id, String nombres, InputStream foto, String descripcion, double precio, int stock) {
+    public Producto(int id, String nombres, String foto, String descripcion, double precio, int stock) {
         this.id = id;
         this.nombres = nombres;
         this.foto = foto;
@@ -44,11 +42,11 @@ public class Producto {
         this.nombres = nombres;
     }
 
-    public InputStream getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(InputStream foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 

@@ -68,7 +68,7 @@
                         </div>
                         <div class="card-body">
                             <i>$.${p.getPrecio()}</i>
-                            <img src="ControladorImg?id=${p.getId()}" width="200" height="180">
+                            <img src="${p.getFoto()}" width="200" height="180">
                         </div>
                         <div class="card-footer test-center">
                             <label>${p.getDescripcion()}</label>

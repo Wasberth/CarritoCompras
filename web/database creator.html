@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `Crud`.`MUsuario` (
   `password` VARCHAR(45) NOT NULL,
   `nivel` INT NOT NULL DEFAULT 2,
   PRIMARY KEY (`id_usr`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;;
 
 
 -- -----------------------------------------------------

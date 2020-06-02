@@ -46,14 +46,12 @@
                 </li>
             </div>
         </nav>
-        <%
-
-            
+        <%  
         //CREANDO LA CONEXION CON BD
         Connection con = null;
         String url = "jdbc:mysql://localhost:3306/";
         String user = "root";
-        String password = "n0m3l0";
+        String password = "root";
         String bd = "Crud";
         
         String driver = "com.mysql.jdbc.Driver";
@@ -65,6 +63,7 @@
                 Statement sst2 = con.createStatement();
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descr");
+                System.out.println("Agregar item\n"+nombre+""+descripcion);
                 String urlImagen = request.getParameter("img_prod")+".jpg";
                 double precio = Double.parseDouble(request.getParameter("precio"));
                 int stock = Integer.parseInt(request.getParameter("stock"));
@@ -75,6 +74,7 @@
                 String sql2 = "insert into DProducto (desc_prod,precio_prod,stock_prod,img_prod) "
                         + "values ('"+descripcion+"',"+precio+","+stock+",'"+urlImagen+"')";
                 int k = sst2.executeUpdate(sql2);
+                out.append("Registro exitoso c:");
                 con.close();
             } catch (SQLException e) {
                 System.out.println("No se conecto a la tabla");
@@ -85,13 +85,14 @@
                 
         } catch (Exception e) {
                 System.out.println("No se conecto a la base");
+                out.append("Porfavor ingresa datos validos");
                 System.out.println(e.getMessage());
                 System.out.println(e.getStackTrace());
         }
         %>
         <br>
         <a class="btn btn-outline-success" href="indexAdmin.jsp">Volver a Menú</a><br>
-        <a class="btn btn-outline-success" href="Agregar.jsp.jsp">Agregar otro artículo</a>
+        <a class="btn btn-outline-success" href="Agregar.jsp">Agregar otro artículo</a>
 
 
     </div>

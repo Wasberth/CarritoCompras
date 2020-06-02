@@ -19,11 +19,14 @@
 
     <body>
         <%
+            HttpSession sesion = request.getSession();
+            String nombre="";
             try {
-                HttpSession sesion = request.getSession();
+                
                 sesion.getAttribute("user");
                 sesion.getAttribute("nivel");
-                String nom_user = sesion.getAttribute("user").toString();
+                
+                nombre = sesion.getAttribute("user").toString();
                 System.out.println("algo");
             } catch (Exception e) {
                 response.sendRedirect("ErrorPage.jsp");
@@ -42,16 +45,15 @@
                         <a class="nav-link" href="Controlador?accion=home">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Controlador?accion=Carrito"><i class="fas fa-cart-plus">(<label style="color: orange">${contador}</label>)</i>Carrito de compras</a>
+                        <a class="nav-link" href="Controlador?accion=Carrito"><i class="fas fa-cart-plus">(<label style="color: orange">${contador}</label>)</i>Carrito de compras de <%out.append(nombre);%></a>
                     </li>
                     <li class="nav-item">
                     </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                </form>
-                <li class="nav-item">
-                    <a class="nav-link" href="Logout.jsp"><i class="fas fa-cart-plus">Cerrar Sesión</i></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Logout.jsp"><i class="fas fa-cart-plus" >Cerrar Sesión </i></a>
                 </li>
+                </ul>
+                
             </div>
         </nav>
 

@@ -20,6 +20,18 @@
         <title>Constular perfiles Admin Page</title>
     </head>
     <body>
+        <%
+            try {
+                HttpSession sesion = request.getSession();
+                sesion.getAttribute("user");
+                sesion.getAttribute("nivel");
+                String nom_user = sesion.getAttribute("user").toString();
+            } catch (Exception e) {
+                response.sendRedirect("ErrorPage.jsp");
+            }
+
+
+        %>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">COVID-19 Shop Administration</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,13 +44,11 @@
                         <a class="nav-link" href="indexAdmin.jsp">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="Logout.jsp"><i class="fas fa-cart-plus">Cerrar Sesión</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                </form>
-                <li class="nav-item">
-                    <a class="nav-link" href="Logout.jsp"><i class="fas fa-cart-plus">Cerrar Sesión</a>
-                </li>
+
+
             </div>
         </nav>
 
@@ -58,22 +68,23 @@
                 <tbody>
                     <tr>
                         <%
+                           
                             LinkedList<Producto> lista = ConsultaAgenda.getProductos();
                             for (int i = 0; i < lista.size(); i++) {
                         %>
                     <tr>
-                        <td><input id="id <%=lista.get(i).getId()%>" disabled type="text" value="<%=lista.get(i).getId()%>"></td>
-                        <td><input id="nombre <%=lista.get(i).getId()%>" disabled type="text" value="<%=lista.get(i).getNombres()%>"></td>
-                        <td><input id="descripcion <%=lista.get(i).getId()%>" disabled type="text" value="<%=lista.get(i).getDescripcion()%>"></td>
-                        <td><input id="precio <%=lista.get(i).getId()%>" disabled type="text" value="<%=lista.get(i).getPrecio()%>"></td>
-                        <td><input id="stock <%=lista.get(i).getId()%>" disabled type="text" value="<%=lista.get(i).getStock()%>"></td>
+                        <td><input id="id <%=lista.get(i).getId()%>" disabled type="text"  value="<%=lista.get(i).getId()%>"></td>
+                        <td><input id="nombre <%=lista.get(i).getId()%>" disabled type="text"   value="<%=lista.get(i).getNombres()%>"></td>
+                        <td><input id="descripcion <%=lista.get(i).getId()%>" disabled type="text"  value="<%=lista.get(i).getDescripcion()%>"></td>
+                        <td><input id="precio <%=lista.get(i).getId()%>" disabled type="text"   value="<%=lista.get(i).getPrecio()%>"></td>
+                        <td><input id="stock <%=lista.get(i).getId()%>" disabled type="text"   value="<%=lista.get(i).getStock()%>"></td>
                         <td>
                             <form id="form <%=lista.get(i).getId()%>" action="Modificar.jsp">
                                 <input id="input nombre <%=lista.get(i).getId()%>" name="nombre_producto" type="hidden">
                                 <input id="input descripcion <%=lista.get(i).getId()%>" name="desc_prod" type="hidden">
                                 <input id="input precio <%=lista.get(i).getId()%>" name="precio_prod" type="hidden">
                                 <input id="input stock <%=lista.get(i).getId()%>" name="stock_prod" type="hidden">
-                                <input id="input <%=lista.get(i).getId()%>" class="editar" type="button" value="editar" onclick="(function () {
+                                <input id="input <%=lista.get(i).getId()%>" class="editar" type="button" value="Editar" onclick="(function () {
                                             var botones = document.getElementsByClassName('editar');
                                             for (var i = 0; i < botones.length; i++) {
                                                 botones[i].hidden = true;
@@ -108,6 +119,7 @@
                     </tr>
                     <%
                         }
+
                     %>
                     </tr>
 

@@ -22,7 +22,7 @@ public class Operaciones {
         driver = "com.mysql.jdbc.Driver";
         url = "jdbc:mysql://localhost:3306/Crud";
         user = "root";
-        passwordBd = "n0m3l0";
+        passwordBd = "root";
     }
 
     public static List<Integer> getNOSTOCK() {
@@ -35,8 +35,6 @@ public class Operaciones {
 
     //Entero por que retorna el nivel de usuario
     public int loguear(String usuario, String password) {
-        System.out.println(usuario);
-        System.out.println(password);
         Connection conn;
         PreparedStatement pst;
         ResultSet rs;

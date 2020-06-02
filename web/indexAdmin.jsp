@@ -41,12 +41,12 @@
                     </li>
                     <li class="nav-item">
                     </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                </form>
-                <li class="nav-item">
+                    <li class="nav-item">
                     <a class="nav-link" href="Logout.jsp"><i class="fas fa-cart-plus">Cerrar Sesión</a>
                 </li>
+                </ul>
+                
+                
             </div>
         </nav>
 
@@ -68,11 +68,9 @@
                             <h4><a href="Agregar.jsp">Agregar articulo</a></h4>
                         </div>
                         <div class="card-body">
-                            <h4><a href="ModificarArticuloAdmin.jsp">Modificar articulo</a></h4>
+                            <h4><a href="CRUDArticulos.jsp">Modificar o Eliminar articulo</a></h4>
                         </div>
-                        <div class ="card-body">
-                            <h4><a href="DeleteArticuloAdmin.jsp">Eliminar articulo</a></h4>   
-                        </div>
+                        
                         
                     </div>
 

@@ -27,7 +27,7 @@
             </div>
             <div class="central-body">
                 <img class="image-404" src="http://salehriaz.com/404Page/img/404.svg" width="300px">
-                <a href="index.jsp" class="btn-go-home" target="_blank">Volver a inicio</a>
+                <a href="index.jsp" class="btn-go-home" >Volver a inicio</a>
             </div>
             <div class="objects">
                 <img class="object_rocket" src="http://salehriaz.com/404Page/img/rocket.svg" width="40px">

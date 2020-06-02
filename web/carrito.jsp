@@ -33,14 +33,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="Controlador?accion=home"><i class="fas fa-cart-plus">Seguir comprando</a>
                     </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-                <li class="nav-item">
+                    <li class="nav-item">
                     <a class="nav-link" href="Logout.jsp"><i class="fas fa-cart-plus">Cerrar Sesión</a>
                 </li>
+                </ul>
+                
+                
             </div>
         </nav>
 
@@ -73,13 +71,15 @@
                                 <td>${car.getNombres()}</td>
                                 <td>${car.getDescripcion()}</td>
                                 <td>${car.getPrecioCompra()}</td>
+                                
+                                
 
                                 <td>
                                     <form class="form-inline" action="Controlador">
                                         <input type="hidden" id="accion" value="CambiarCantidad" name="accion">
                                         <input type="hidden" id="id" value="${car.getIdProducto()}" name="id">
                                             <div class="col-9">
-                                                <input type="number" id="Cantidad" value="${car.getCantidad()}" class="form-control text-center" min="1" name="cantidad">
+                                                <input type="number" id="Cantidad" value="${car.getCantidad()}" class="form-control text-center" min="1" max="100000" name="cantidad">
                                             </div>
                                             <div class="col-2">
                                                 <input type="submit" class="form-control text-center btn btn-danger" value="Actualizar">

@@ -129,6 +129,9 @@ public class Ticket {
     }
 
     public String getTicketString() {
+        double subtotal2,total2;
+        subtotal2 = subtotal;
+        
         String ticketString = ""
                 + "COVID-SHOP MÉXICO\n"
                 + "COMPRA EN LÍNEA\n"
@@ -142,14 +145,19 @@ public class Ticket {
             int cantidad = cantidades.get(i);
             if (new Operaciones().checkStock(id, cantidad)) {
                 ticketString = ticketString + producto + " x" + cantidad + " $" + costo + "\n";
+            }else{
+                subtotal2 = subtotal2-(costos.get(i)*cantidades.get(i));
+            
             }
         }
+        total2 = subtotal2 * 1.16;
+        
 
         ticketString = ticketString + ""
                 + "-----------------------------\n"
-                + "SUBTOTAL $" + subtotal + "\n"
+                + "SUBTOTAL $" + subtotal2 + "\n"
                 + "+ IVA 16%" + "\n"
-                + "TOTAL $" + total + "\n"
+                + "TOTAL $" + total2 + "\n"
                 + "=============================\n"
                 + "VERSIÓN COVID-SHOPv1.0\n"
                 + "MUCHAS GRACIAS POR SU VISITA";

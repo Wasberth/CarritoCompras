@@ -4,12 +4,6 @@
     Author     : PORTO
 --%>
 
-<%@page import="config.AtributosRegistro"%>
-<%@page import="java.sql.SQLException"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,9 +13,19 @@
     </head>
     <body>
         
-        
+        <%@page language="java" import="java.sql.*, java.util.*, java.text.*"%>
         
         <%
+        out.append("<style> p (font-family: arial;"
+                + "color: blue; font-size: 16);"
+                + "</style>"
+                + "<style> a,b (font-family: arial;"
+                + "color: red; font-size: 16);"
+                + "</style>"
+                + "<style> a.space (font-family: arial;"
+                + "color: green; font-size: 18);"
+                + "margin: 0 0 0 208px;"
+                + "</style>");
         //CREANDO LA CONEXION CON BD
         Connection con = null;
         String url = "jdbc:mysql://localhost:3306/";
@@ -36,12 +40,12 @@
             con = DriverManager.getConnection(url+bd, user, password);
             try {
                 Statement sst = con.createStatement();
+                int id = 2;
                 nombre = request.getParameter("user");
                 contra = request.getParameter("password");
-                System.out.println("GUARDAR JSP: ,\n"+nombre+"\n"+contra);
+                System.out.println(nombre);
                 String sql = "insert into MUsuario (username, password)"
                         + " values ('"+nombre+"','"+contra+"')";
-                
                 System.out.println(sql);
                 int val = sst.executeUpdate(sql);
                 con.close();
@@ -58,12 +62,7 @@
                 System.out.println(e.getMessage());
                 System.out.println(e.getStackTrace());
         }
-        AtributosRegistro ar = new AtributosRegistro(nombre,contra);
-        String usuario_r = AtributosRegistro.usuario;
-                        String password_r = AtributosRegistro.password;
-                        System.out.println(usuario_r);
-                        System.out.println(password_r);
-        response.sendRedirect("index.jsp?btniniciar=1&user="+usuario_r+"&nivel=2&password="+password_r);
+        response.sendRedirect("index.jsp?btninicar=1&user="+nombre+"&nivel=2&password="+contra);
         %>
     </body>
 </html>

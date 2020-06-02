@@ -58,7 +58,7 @@
         %>
         <br>
         <a class="btn btn-outline-success" href="indexAdmin.jsp">Volver a Menú</a><br>
-        <a class="btn btn-outline-success" href="DeleteArticuloAdmin.jsp">Eliminar otro artículo</a>
+        <a class="btn btn-outline-success" href="CRUDArticulos.jsp">Eliminar otro artículo</a>
 
 
     </div>

@@ -1,5 +1,4 @@
-<%@page import="config.AtributosRegistro"%>
-x<%-- 
+<%-- 
     Document   : index
     Created on : 21/04/2020, 06:56:35 PM
     Author     : PORTO
@@ -26,7 +25,7 @@ x<%--
             <div class="login-content">
                 <form action="index.jsp" method="post">
                     <img src="img/avatar.svg">
-                    <h2 class="title">Bienvenido</h2>
+                    <h2 class="title">Bienvenido a COVID-19 Shop</h2>
                     <h5>Al ingresar a nuestro sitio acepta nuestros <a href="#">términos y condiciones</a></h5>
                     <div class="input-div one">
                         <div class="i">
@@ -48,39 +47,38 @@ x<%--
                     </div>
                     <a href="registrar.jsp">Eres nuevo? Registrate c:</a>
                     <input type="submit" class="btn" value="Login" name="btninicar">
-                    <%@page import="modelado.Operaciones"%>
-                    <%
+                <%@page import="modelado.Operaciones"%>
+                <%
 
-                        Operaciones op = new Operaciones();
-                        
-                        if (request.getParameter("btninicar") != null) {
-                            System.out.println("something");
-                            String nomUser = request.getParameter("user");
-                            String password = request.getParameter("password");
-                            HttpSession sesion = request.getSession();
+                    Operaciones op = new Operaciones();
+                    if (request.getParameter("btninicar") != null) {
+                        System.out.println("something");
+                        String nomUser = request.getParameter("user");
+                        String password = request.getParameter("password");
+                        HttpSession sesion = request.getSession();
 
-                            switch (op.loguear(nomUser, password)) {
-                                case 1:
-                                    sesion.setAttribute("user", nomUser);
-                                    sesion.setAttribute("nivel", "1");
-                                    response.sendRedirect("indexAdmin.jsp");
-                                    break;
+                        switch (op.loguear(nomUser, password)) {
+                            case 1:
+                                sesion.setAttribute("user", nomUser);
+                                sesion.setAttribute("nivel", "1");
+                                response.sendRedirect("indexAdmin.jsp");
+                                break;
 
-                                case 2:
-                                    sesion.setAttribute("user", nomUser);
-                                    sesion.setAttribute("nivel", "2");
-                                    response.sendRedirect("Controlador?accion=home");
-                                    break;
+                            case 2:
+                                sesion.setAttribute("user", nomUser);
+                                sesion.setAttribute("nivel", "2");
+                                response.sendRedirect("Controlador?accion=home");
+                                break;
 
-                                default:
-                                    out.append("<h6 class='error'>Tu usuario no existe</h6>");
-                                    break;
-                            }
+                            default:
+                                out.append("<h6 class='error'>Tu usuario no existe</h6>");
+                                break;
                         }
-                        if (request.getParameter("log") != null) {
-                            out.append("<h6 class='error'>No haz iniciado sesión</h6>");
-                        }
-                    %>
+                    }
+                    if(request.getParameter("log") != null){
+                        out.append("<h6 class='error'>No haz iniciado sesión</h6>");
+                    }
+                %>
                 </form>
             </div>
         </div>

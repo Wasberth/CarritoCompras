@@ -66,7 +66,7 @@
  %>
  <br>
   <a class="btn btn-outline-success" href="indexAdmin.jsp">Volver a Menú</a><br>
-                <a class="btn btn-outline-success" href="ModificarArticuloAdmin.jsp">Modificar otro artículo</a>
+                <a class="btn btn-outline-success" href="CRUDArticulos.jsp">Modificar otro artículo</a>
         
 
     </div>

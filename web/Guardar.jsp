@@ -12,6 +12,22 @@
         <title>Guardar jsp</title>
     </head>
     <body>
+        <%
+        try{
+                HttpSession sesion = request.getSession();
+                sesion.getAttribute("user");
+                sesion.getAttribute("nivel");
+                if(sesion.getAttribute("nivel")!="1"){
+                    sesion.removeAttribute("user");
+                    sesion.removeAttribute("nivel");
+                    response.sendRedirect("ErrorPage.jsp");
+                }else{
+                String nom_user = sesion.getAttribute("user").toString();
+                }
+            }catch(Exception e){
+                response.sendRedirect("ErrorPage.jsp");
+            }
+        %>
         
         <%@page language="java" import="java.sql.*, java.util.*, java.text.*"%>
         

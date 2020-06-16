@@ -16,7 +16,9 @@
             HttpSession sesion = request.getSession();
 
             if (sesion.getAttribute("user") != null && sesion.getAttribute("nivel") != null) {
-                session.invalidate();
+                //session.invalidate();
+                sesion.removeAttribute("user");
+                sesion.removeAttribute("nivel");
                 response.sendRedirect("index.jsp");
             } else {
                 out.append("<script>location.replace['index.jsp'];</script>");

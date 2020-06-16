@@ -21,7 +21,13 @@
                 HttpSession sesion = request.getSession();
                 sesion.getAttribute("user");
                 sesion.getAttribute("nivel");
+                if(sesion.getAttribute("nivel")!="1"){
+                    sesion.removeAttribute("user");
+                    sesion.removeAttribute("nivel");
+                    response.sendRedirect("ErrorPage.jsp");
+                }else{
                 String nom_user = sesion.getAttribute("user").toString();
+                }
             }catch(Exception e){
                 response.sendRedirect("ErrorPage.jsp");
             }

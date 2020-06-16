@@ -19,6 +19,23 @@
         <title>Constular perfiles Admin Page</title>
     </head>
     <body>
+        <%
+        try{
+                HttpSession sesion = request.getSession();
+                sesion.getAttribute("user");
+                sesion.getAttribute("nivel");
+                if(sesion.getAttribute("nivel")!="1"){
+                    sesion.removeAttribute("user");
+                    sesion.removeAttribute("nivel");
+                    response.sendRedirect("ErrorPage.jsp");
+                }else{
+                String nom_user = sesion.getAttribute("user").toString();
+                }
+            }catch(Exception e){
+                response.sendRedirect("ErrorPage.jsp");
+            }
+        
+        %>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">COVID-19 Shop Administration</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

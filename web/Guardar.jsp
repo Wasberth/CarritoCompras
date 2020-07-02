@@ -12,22 +12,7 @@
         <title>Guardar jsp</title>
     </head>
     <body>
-        <%
-        try{
-                HttpSession sesion = request.getSession();
-                sesion.getAttribute("user");
-                sesion.getAttribute("nivel");
-                if(sesion.getAttribute("nivel")!="1"){
-                    sesion.removeAttribute("user");
-                    sesion.removeAttribute("nivel");
-                    response.sendRedirect("ErrorPage.jsp");
-                }else{
-                String nom_user = sesion.getAttribute("user").toString();
-                }
-            }catch(Exception e){
-                response.sendRedirect("ErrorPage.jsp");
-            }
-        %>
+        
         
         <%@page language="java" import="java.sql.*, java.util.*, java.text.*"%>
         
@@ -65,7 +50,6 @@
                 System.out.println(sql);
                 int val = sst.executeUpdate(sql);
                 con.close();
-                out.append("Registro exitoso");
             } catch (SQLException e) {
                 System.out.println("No se conecto a la tabla");
                 System.out.println(e.getMessage());
@@ -79,6 +63,7 @@
                 System.out.println(e.getStackTrace());
         }
         response.sendRedirect("index.jsp?btninicar=1&user="+nombre+"&nivel=2&password="+contra);
+
         %>
     </body>
 </html>

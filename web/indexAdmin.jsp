@@ -49,7 +49,10 @@
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="Logout.jsp"><i class="fas fa-cart-plus">Cerrar Sesión</a>
-                </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Controlador?accion=home"><i class="fas fa-cart-plus">Quiero comprar algo</i></a>
+                    </li>
                 </ul>
                 
                 

@@ -78,9 +78,10 @@
                                     <form class="form-inline" action="Controlador">
                                         <input type="hidden" id="accion" value="CambiarCantidad" name="accion">
                                         <input type="hidden" id="id" value="${car.getIdProducto()}" name="id">
-                                            <div class="col-9">
+                                            <div class="col-6">
                                                 <input type="number" id="Cantidad" value="${car.getCantidad()}" class="form-control text-center" min="1" max="100000" name="cantidad">
                                             </div>
+                                            
                                             <div class="col-2">
                                                 <input type="submit" class="form-control text-center btn btn-danger" value="Actualizar">
                                             </div>

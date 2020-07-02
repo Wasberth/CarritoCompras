@@ -20,18 +20,18 @@
     <body>
         <%
             HttpSession sesion = request.getSession();
-            String nombre="";
+            String nombre = "";
+            int nivel = 0;
             try {
-                
+
                 sesion.getAttribute("user");
-                sesion.getAttribute("nivel");
-                
+                nivel = Integer.parseInt(sesion.getAttribute("nivel").toString());
+
                 nombre = sesion.getAttribute("user").toString();
                 System.out.println("algo");
             } catch (Exception e) {
                 response.sendRedirect("ErrorPage.jsp");
             }
-
 
         %>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -51,13 +51,22 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="Logout.jsp"><i class="fas fa-cart-plus" >Cerrar Sesión </i></a>
-                </li>
+                    </li>
+                    <%
+                        if (nivel == 1) {
+                    %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="indexAdmin.jsp"><i class="fas fa-cart-plus" >Página de administradores.</i></a>
+                    </li>
+                    <%
+                    }
+                    %>
                 </ul>
-                
+
             </div>
         </nav>
 
-        <%                        
+        <%
             Object PSS = request.getAttribute("mensaje");
             System.out.println(PSS);
             if (PSS != null) {
